@@ -1,0 +1,65 @@
+.
+├── README.md
+├── src
+│   ├── snake_flask
+│   │   ├── common
+│   │   │   ├── README.md
+│   │   │   └── static
+│   │   │       ├── logo.png
+│   │   │       ├── snake-common.css
+│   │   │       └── snake-common.js
+│   │   ├── database
+│   │   │   ├── README.md
+│   │   ├── example
+│   │   │   ├── app
+│   │   │   │   └── templates
+│   │   │   │       ├── admin
+│   │   │   │       │   ├── user-account.html
+│   │   │   │       │   └── users.html
+│   │   │   │       ├── auth
+│   │   │   │       │   ├── login.html
+│   │   │   │       │   ├── my-account.html
+│   │   │   │       │   └── sign-up.html
+│   │   │   │       ├── base.html
+│   │   │   │       ├── flash.html
+│   │   │   │       ├── index.html
+│   │   │   │       ├── lists
+│   │   │   │       │   ├── _bk_card.html
+│   │   │   │       │   └── list.html
+│   │   │   │       └── navbar.html
+│   │   │   ├── instance
+│   │   │       ├── data
+│   │   │          └── bookmarks.toml
+│   │   ├── linguae
+│   │   │   └── README.md
+│   │   ├── lists
+│   │   │   ├── static
+│   │   │   │   └── snake-lists.js
+│   │   │   └── templates
+│   │   │       └── snake_lists
+│   │   │           ├── _body.html
+│   │   │           └── list.html
+│   │   ├── quiz
+│   │   │   ├── quizzes
+│   │   │   │   └── flask.md
+│   │   │   ├── README.md
+│   │   │   ├── static
+│   │   │   └── templates
+│   │   │       └── snake_quiz
+│   │   │           ├── base_extension.html
+│   │   │           ├── base_standalone.html
+│   │   │           ├── index.html
+│   │   │           ├── result.html
+│   │   │           └── take.html
+│   │   ├── tables
+│   │   │   ├── README.md
+│   │   │   ├── static
+│   │   │   │   └── snake-tables.js
+│   │   │   └── templates
+│   │   │       └── snake_tables
+│   │   │           └── table.html
+│   │   └── utils
+│   │       └── README.md
+└── TODO.md
+
+59 directories, 154 files

@@ -3,23 +3,60 @@
 # |                                                                           |
 # | Author      : Pascal Malouin (https://github.com/fantomH)                 |
 # | Created     : 2026-06-22 10:39:45 UTC                                     |
-# | Updated     : 2026-06-23 12:58:41 UTC                                     |
+# | Updated     : 2026-07-03 18:55:55 UTC                                     |
 # | Description : Snake-Flask pyproject                                       |
 # +---------------------------------------------------------------------------+
 
 [build-system]
-requires = ["setuptools>=61", "wheel"]
+requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "Snake-Flask"
-version = "1.0.1"
-description = "Miscellaneous Flask utils and extensions."
+version = "0.0.1"
+description = "Miscellaneous Flask utilities and extensions."
 readme = { file = "README.md", content-type = "text/markdown" }
-authors = [{ name = "Pascal Malouin", email = "pascal.malouin@gmail.com" }]
-urls = { Homepage = "https://github.com/fantomH/Snake-Vault/" }
+requires-python = ">=3.10"
+license = { text = "MIT" }
 
-dependencies = ["Flask"]
+authors = [
+    { name = "Pascal Malouin", email = "pascal.malouin@gmail.com" }
+]
+
+keywords = ["flask", "extensions", "tables", "quiz", "sqlite", "postgresql"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Flask",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+dependencies = [
+    "Flask",
+    "Markdown",
+    "MarkupSafe",
+    "rapidfuzz",
+    "psycopg",
+    "Werkzeug",
+    "snake-vault @ git+https://github.com/fantomH/Snake-Vault.git",
+]
+
+[project.optional-dependencies]
+
+dev = [
+    "build",
+    "twine",
+]
+
+[project.urls]
+Homepage = "https://github.com/fantomH/Snake-Flask/"
+Repository = "https://github.com/fantomH/Snake-Flask/"
+Issues = "https://github.com/fantomH/Snake-Flask/issues"
 
 [tool.setuptools]
 zip-safe = false
@@ -29,8 +66,41 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
-"snake_flask.quiz" = [
+"snake_flask.common" = [
+    "README.md",
+    "static/*",
+]
+
+"snake_flask.database" = [
+    "README.md",
+]
+
+"snake_flask.linguae" = [
+    "README.md",
+]
+
+"snake_flask.lists" = [
     "templates/**/*.html",
-    "static/**/*",
+    "static/*",
+]
+
+"snake_flask.quiz" = [
+    "README.md",
+    "templates/**/*.html",
+    "static/*",
     "quizzes/*.md",
+]
+
+"snake_flask.tables" = [
+    "README.md",
+    "templates/**/*.html",
+    "static/*",
+]
+
+"snake_flask.utils" = [
+    "README.md",
+]
+
+"snake_flask.example" = [
+    "app/templates/**/*.html",
 ]
