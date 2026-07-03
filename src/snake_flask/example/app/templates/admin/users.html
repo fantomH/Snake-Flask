@@ -1,0 +1,24 @@
+<!--
++---------------------------------------------------------------------- INFO -+
+| [Snake-Flask/src/snake_flask/example/app/templates/admin/users.html]        |
+|                                                                             |
+| Author      : Pascal Malouin (https://github.com/fantomH)                   |
+| Created     : 2026-06-16 13:38:36 UTC                                       |
+| Updated     : 2026-06-16 13:38:36 UTC                                       |
+| Description : Users template.                                               |
++-----------------------------------------------------------------------------+
+-->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="sc-container-fluid">
+
+    <h1>{{ display_language.get("ADMIN-USERS-h1", "Users") }}</h1>
+
+    {{ users_table.load() | safe }}
+
+  </div>
+
+{% endblock %}

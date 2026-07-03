@@ -1,0 +1,112 @@
+<style>
+    #{{ table.table_id }} .snake-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #{{ table.table_id }} .snake-table-inner {
+        width: 100%;
+    }
+
+    #{{ table.table_id }} .snake-table-inner th,
+    #{{ table.table_id }} .snake-table-inner td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 250px;
+    }
+
+    #{{ table.table_id }} th {
+        position: relative;
+    }
+
+    #{{ table.table_id }} .snake-table-resizer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        height: 100%;
+        cursor: col-resize;
+        user-select: none;
+    }
+
+    .snake-table-drag-ghost {
+        position: fixed;
+        pointer-events: none;
+        opacity: 1;
+        background: white;
+        border: 1px solid #111;
+        padding: 6px 12px;
+        border-radius: 4px;
+        z-index: 9999;
+    }
+
+    #{{ table.table_id }} .snake-table-copyable {
+        cursor: copy;
+    }
+</style>
+
+<div
+    id="{{ table.table_id }}"
+    class="snake-table"
+    data-url="{{ table.data_url }}"
+    data-update-url="{{ table.data_update_url }}"
+    data-lang-of="{{ display_language.get('LINGUAE-of', 'of') }}"
+    data-lang-click-to-copy="{{ display_language.get('LINGUAE-click_to_copy', 'click to copy').capitalize() }}"
+>
+    <div class="d-flex justify-content-between mb-2">
+        <input
+            type="text"
+            class="form-control w-25 snake-table-search"
+            placeholder="{{ display_language.get('LINGUAE-search_dot_dot_dot', 'search...').capitalize() }}"
+        >
+
+        <select class="form-select w-auto snake-table-page-size">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+
+    <div class="snake-table-wrapper">
+        <table class="table table-striped table-hover align-middle snake-table-inner">
+            <thead>
+                <tr>
+                    {% for column in table.columns %}
+                        <th
+                            draggable="true"
+                            data-column="{{ column.name }}"
+                            data-type="{{ column.get('type', 'text') }}"
+                            data-sortable="{{ 'true' if column.get('sortable') else 'false' }}"
+                            data-url="{{ column.get('url', '') }}"
+                            data-text="{{ column.get('text', '') }}"
+                            data-class="{{ column.get('class', '') }}"
+                        >
+                            {{ column.label }}
+
+                            <span class="snake-table-sort-indicator"></span>
+                            <span class="snake-table-resizer"></span>
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-sm btn-dark snake-table-prev">
+            {{ display_language.get('LINGUAE-previous_arrow', '< Previous') }}
+        </button>
+
+        <span class="snake-table-info"></span>
+
+        <button class="btn btn-sm btn-dark snake-table-next">
+            {{ display_language.get('LINGUAE-next_arrow', 'Next >') }}
+        </button>
+    </div>
+</div>
+
+<script src="{{ url_for('snake_tables.static', filename='snake-tables.js') }}"></script>

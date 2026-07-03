@@ -1,0 +1,23 @@
+<div
+    class="snake-list-data"
+    data-page="{{ list.page }}"
+    data-total-pages="{{ list.total_pages }}"
+    data-total-items="{{ list.total_items }}"
+    data-page-size="{{ list.per_page }}"
+    data-has-previous="{{ 'true' if list.has_previous else 'false' }}"
+    data-has-next="{{ 'true' if list.has_next else 'false' }}"
+>
+    {% if list.page_items %}
+
+        {% for item in list.page_items %}
+            {% include list.card_template %}
+        {% endfor %}
+
+    {% else %}
+
+        <div class="alert alert-secondary">
+            No results found.
+        </div>
+
+    {% endif %}
+</div>

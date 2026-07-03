@@ -1,0 +1,79 @@
+<!--
++---------------------------------------------------------------------- INFO -+
+| [Snake-Flask/src/snake_flask/quiz/templates/snake_quiz/result.html]         |
+|                                                                             |
+| Author      : Pascal Malouin (https://github.com/fantomH)                   |
+| Created     : 2026-06-24 14:31:46 UTC                                       |
+| Updated     : 2026-06-24 14:31:46 UTC                                       |
+| Description : Result template.                                              |
++-----------------------------------------------------------------------------+
+-->
+
+{% extends _internal_base_template %}
+
+{% block snake_quiz_content %}
+
+  <div class="sc-container-fluid">
+    <h1>{{ questionnaire.title }}</h1>
+
+      {% for question in results %}
+
+        <div class="sc-box sc-box-dark">
+
+          <h4>Question {{ loop.index }}</h4>
+
+          <div class="mb-3">
+            {{ question.question | markdown | safe }}
+          </div>
+
+          {% for choice in question.choices %}
+
+            {% set is_correct_choice = choice == question.answer %}
+            {% set is_wrong_selected = choice == question.user_answer and not question.is_correct %}
+
+              <div class="
+                sc-box
+                {% if is_correct_choice %}
+                  sc-box-success-subtle
+                {% elif is_wrong_selected %}
+                  sc-box-danger-subtle
+                {% else %}
+                  sc-box-light-subtle
+                {% endif %}">
+
+                  {{ choice | markdown | safe }}
+
+                {% if is_correct_choice %}
+                  <strong class="text-success">{{ display_language.get("SNAKEQUIZ-RESULTS-correct-answer", "Correct answer") }}</strong>
+                {% endif %}
+
+                {% if is_wrong_selected %}
+                  <strong class="text-danger">{{ display_language.get("SNAKEQUIZ-RESULTS-your-answer", "Your answer") }}</strong>
+                {% endif %}
+              </div>
+
+          {% endfor %}
+
+          <div class="mt-3 p-3 bg-light border rounded">
+            <strong>{{ display_language.get("SNAKEQUIZ-RESULTS-explanation", "Explanation:") }}</strong>
+
+            <div>
+              {{ question.explanation | markdown | safe }}
+            </div>
+          </div>
+
+        </div>
+
+      {% endfor %}
+
+    <div class="sc-box sc-box-dark">
+        {{ display_language.get("SNAKEQUIZ-RESULTS-score", "Score:") }} {{ score }} / {{ total }}
+    </div>
+
+    <a href="{{ url_for('snake_quiz.index') }}" class="btn btn-dark">
+        {{ display_language.get("LINGUAE-back", "back").capitalize() }}
+    </a>
+
+  </div>
+
+{% endblock %}

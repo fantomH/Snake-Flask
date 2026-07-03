@@ -1,0 +1,117 @@
+<!--
++---------------------------------------------------------------------- INFO -+
+| [Snake-Flask/src/snake_flask/example/app/templates/admin/user-account.html] |
+|                                                                             |
+| Author      : Pascal Malouin (https://github.com/fantomH)                   |
+| Created     : 2026-06-16 13:42:03 UTC                                       |
+| Updated     : 2026-06-16 13:42:03 UTC                                       |
+| Description : User Account template.                                        |
++-----------------------------------------------------------------------------+
+-->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="sc-container-fluid">
+
+    <form method="POST" action="">
+
+      <h1>{{ display_language.get("USER-ACCOUNT-h1", "User Account ") }} ({{ user_account.username }})</h1>
+
+      <div class="form-group">
+        <div class="form-check form-switch">
+          <input class="form-check-input"
+                type="checkbox"
+                id="is_active"
+                name="is_active"
+                {% if user_account.is_active == 1 %}checked{% endif %}>
+          <label class="form-check-label" for="is_active">
+              {{ display_language.get("USERACCOUNT-is-active", "active") }}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="border border-3 border-dark rounded p-3">
+      
+          <label for="username">
+            {{ display_language.get("USER-ACCOUNT-username", "Username") }}
+          </label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              value="{{ user_account.username }}"/>
+          </div>
+
+          <label for="firstname">{{ display_language.get("USER-ACCOUNT-firstname_label", "First Name") }}</label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              class="form-control"
+              value="{{ user_account.firstname }}"/>
+          </div>
+
+          <label for="lastname">{{ display_language.get("USER-ACCOUNT-lastname_label", "Last Name") }}</label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              class="form-control"
+              value="{{ user_account.lastname }}"/>
+          </div>
+
+          <label for="email">{{ display_language.get("USER-ACCOUNT-email_label", "Email") }}</label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="email"
+              name="email"
+              class="form-control"
+              value="{{ user_account.email }}"/>
+          </div>
+
+        </div>
+
+        <br />
+
+        <div class="border border-3 border-dark rounded p-3">
+
+          <h4>{{ display_language.get("USER-ACCOUNT-change_password", "Change Password") }}</h4>
+
+          <label for="password1">{{ display_language.get("USER-ACCOUNT-new_password_label", "New password") }}</label>
+          <div class="input-group">
+            <input
+              type="password"
+              id="password1"
+              name="password1"
+              class="form-control"
+              placeholder="{{ display_language.get("USER-ACCOUNT-new_password_placeholder", "Enter new password") }}"/>
+          </div>
+
+          <label for="password2">{{ display_language.get("USER-ACCOUNT-confirm_password_label", "Confirmation of new password") }}</label>
+          <div class="input-group">
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="{{ display_language.get("USER-ACCOUNT-confirm_password_placeholder", "Confirm new password") }}"/>
+          </div>
+        </div>
+        <br />
+        <div align="right">
+          <button class="btn btn-dark" type="submit">{{ display_language.get("LINGUAE-save", "save").capitalize() }}</button>
+        </div>
+
+      </form>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="sc-container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+            <img src="{{ url_for('snake_common.static', filename='logo.png') }}" alt="" height="30" class="d-inline-block align-text-middle">  Example
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Authentication</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('auth.login') }}">Login</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('auth.sign_up') }}">Sign-up</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('auth.my_account') }}">My account</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('admin.users') }}">Users list</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for("admin.user_account", username="admin") }}">User account</a></li>
+                    </ul>
+                </li>
+
+                <a class="nav-item nav-link" href="{{ url_for('snake_quiz.index') }}">Quiz</a>
+                <a class="nav-item nav-link" href="{{ url_for('snake_scribe.index') }}">SnakeScribe</a>
+
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,76 @@
+<!--
++---------------------------------------------------------------------- INFO -+
+| [Snake-Flask/src/snake_flask/lists/templates/snake_lists/list.html]         |
+|                                                                             |
+| Author      : Pascal Malouin (https://github.com/fantomH)                   |
+| Created     : 2026-07-02 15:25:08 UTC                                       |
+| Updated     : 2026-07-02 15:25:08 UTC                                       |
+| Description : List template.                                                |
++-----------------------------------------------------------------------------+
+-->
+
+<style>
+    #{{ list.list_id }} .snake-list-wrapper {
+        width: 100%;
+    }
+
+    #{{ list.list_id }} .snake-list-body {
+        width: 100%;
+    }
+
+    #{{ list.list_id }} .snake-list-search {
+        min-width: 250px;
+    }
+
+    #{{ list.list_id }} .snake-list-card {
+        overflow: hidden;
+    }
+</style>
+
+<div
+    id="{{ list.list_id }}"
+    class="snake-list"
+    data-url="{{ list.data_url }}"
+    data-lang-of="of"
+>
+    <div class="d-flex justify-content-between mb-2">
+        <input
+            type="text"
+            class="form-control w-25 snake-list-search"
+            placeholder="Search..."
+            value="{{ list.query }}"
+            autocomplete="off"
+        >
+
+        <select class="form-select w-auto snake-list-page-size">
+            {% for option in list.per_page_options %}
+                <option
+                    value="{{ option }}"
+                    {% if option == list.per_page %}selected{% endif %}
+                >
+                    {{ option }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="snake-list-wrapper">
+        <div class="snake-list-body">
+            {{ list.render_body() }}
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-2">
+        <button class="btn btn-sm btn-dark snake-list-prev">
+            &lt; Previous
+        </button>
+
+        <span class="snake-list-info"></span>
+
+        <button class="btn btn-sm btn-dark snake-list-next">
+            Next &gt;
+        </button>
+    </div>
+</div>
+
+<script src="{{ url_for('snake_common.static', filename='snake-common.js') }}"></script>

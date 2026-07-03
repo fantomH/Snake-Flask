@@ -1,0 +1,36 @@
+# +-------------------------------------------------------------------- INFO -+
+# | [Snake-Flask/pyproject.toml]                                              |
+# |                                                                           |
+# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
+# | Created     : 2026-06-22 10:39:45 UTC                                     |
+# | Updated     : 2026-06-23 12:58:41 UTC                                     |
+# | Description : Snake-Flask pyproject                                       |
+# +---------------------------------------------------------------------------+
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Snake-Flask"
+version = "1.0.1"
+description = "Miscellaneous Flask utils and extensions."
+readme = { file = "README.md", content-type = "text/markdown" }
+authors = [{ name = "Pascal Malouin", email = "pascal.malouin@gmail.com" }]
+urls = { Homepage = "https://github.com/fantomH/Snake-Vault/" }
+
+dependencies = ["Flask"]
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"snake_flask.quiz" = [
+    "templates/**/*.html",
+    "static/**/*",
+    "quizzes/*.md",
+]

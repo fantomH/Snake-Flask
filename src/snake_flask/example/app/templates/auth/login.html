@@ -1,0 +1,44 @@
+<!--
++---------------------------------------------------------------------- INFO -+
+| [Snake-Flask/src/snake_flask/example/app/templates/auth/login.html]         |
+|                                                                             |
+| Author      : Pascal Malouin (https://github.com/fantomH)                   |
+| Created     : 2026-06-16 13:44:24 UTC                                       |
+| Updated     : 2026-06-16 13:44:24 UTC                                       |
+| Description : Login template.                                               |
++-----------------------------------------------------------------------------+
+-->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <form method="POST">
+
+    <h1>{{ display_language.get("LOGIN-h1", "Log in") }}</h1>
+    <div class="form-group">
+        <label for="email">{{ display_language.get("LOGIN-user", "User") }}</label>
+        <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            placeholder="{{ display_language.get("LOGIN-user_placeholder", "Enter your username") }}"/>
+        <label for="password">{{ display_language.get("LOGIN-password", "Password") }}</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="{{ display_language.get("LOGIN-password_placeholder", "Enter your password") }}"/>
+        <br />
+        <div align="right">
+            <button class="btn btn-dark" type="submit">{{ display_language.get("LOGIN-login", "Log In") }}</button>
+        </div>
+    </div>
+
+  </form>
+</div>
+
+{% endblock %}
