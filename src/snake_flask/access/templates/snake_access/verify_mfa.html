@@ -1,0 +1,62 @@
+<!--
+[ INFO ] -------------------------------------------------------------------- +
+| [Snake-Flask/src/snake_flask/access/templates/snake_access/verify_mfa.html] |
+|                                                                             |
+| Author      : Pascal Malouin (https://github.com/fantomH)                   |
+| Created     : 2026-07-06 12:28:47 UTC                                       |
+| Updated     : 2026-07-06 12:28:47 UTC                                       |
+| Description : MFA verification.                                             |
++ --------------------------------------------------------------------------- +
+-->
+
+{% extends _internal_base_template %}
+
+{% block snake_access_content %}
+
+    <div class="container py-5" style="max-width: 420px;">
+
+        <h2 class="mb-4">
+            Multi-factor Authentication
+        </h2>
+
+        <p>
+            Enter the 6-digit code from your authenticator application.
+        </p>
+
+        <form method="post">
+
+            <div class="mb-3">
+
+                <label
+                    for="code"
+                    class="form-label"
+                >
+                    Authentication Code
+                </label>
+
+                <input
+                    class="form-control form-control-lg text-center"
+                    id="code"
+                    name="code"
+                    type="text"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    maxlength="6"
+                    autofocus
+                    required
+                >
+
+            </div>
+
+            <button
+                class="btn btn-dark w-100"
+                type="submit"
+            >
+                Verify
+            </button>
+
+        </form>
+
+    </div>
+
+{% endblock %}

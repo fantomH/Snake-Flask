@@ -41,6 +41,16 @@ def login():
             if user.is_active:
                 if check_password_hash(user.password_hash, password):
 
+                    if user.mfa_enabled:
+
+                        session.clear()
+                        session["pending_user_id"] = user.id
+
+                        if user.mfa_secret:
+                            return redirect(url_for("mfa.verify_mfa"))
+
+                        return redirect(url_for("mfa.mfa_setup"))
+
                     session.clear()
                     session["user_id"] = user.id
                     session.permanent = True

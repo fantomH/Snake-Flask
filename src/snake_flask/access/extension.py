@@ -1,0 +1,68 @@
+# [ INFO ] ------------------------------------------------------------------ +
+# | [Snake-Flask/src/snake_flask/access/extension.py]                         |
+# |                                                                           |
+# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
+# | Created     : 2026-07-06 11:31:03 UTC                                     |
+# | Updated     : 2026-07-06 11:31:03 UTC                                     |
+# | Description : SnakeAccess extention.                                      |
+# + ------------------------------------------------------------------------- +
+
+from __future__ import annotations
+
+from snake_flask.common import ensure_snake_common
+from snake_flask.linguae import ensure_linguae
+
+from .blueprints.mfa import bp as _mfa
+
+class SnakeAccess:
+
+    def __init__(self, app=None):
+        if app is not None:
+            self.init_app(app)
+
+    def init_app(self, app):
+        if "snake_access" in app.extensions:
+            raise RuntimeError(
+                "[!] SnakeAccess has already been initialized."
+            )
+
+        app.extensions["snake_access"] = self
+
+        linguae = ensure_linguae(app)
+        linguae.register_package("snake_flask.access.dictionaries")
+        ensure_snake_common(app)
+
+        # [+] --------------------------------------------------------------- +
+        # | Configuration                                                     |
+        # + ----------------------------------------------------------------- +
+
+        app.config.setdefault(
+            "SNAKE_ACCESS_BASE_TEMPLATE",
+            None,
+        )
+
+        # [+] --------------------------------------------------------------- +
+        # | Blueprints and Templates                                          |
+        # + ----------------------------------------------------------------- +
+
+        @app.context_processor
+        def inject_base_template():
+            _base_template = app.config[
+                "SNAKE_ACCESS_BASE_TEMPLATE"
+            ]
+
+            if _base_template is None:
+                _internal_base_template = (
+                    "snake_access/base_standalone.html"
+                )
+            else:
+                _internal_base_template = (
+                    "snake_access/base_extension.html"
+                )
+
+            return {
+                "_internal_base_template": _internal_base_template,
+                "_base_template": _base_template,
+            }
+
+        app.register_blueprint(_mfa)

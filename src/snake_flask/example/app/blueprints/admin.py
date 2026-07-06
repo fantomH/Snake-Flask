@@ -74,6 +74,7 @@ def user_account(username):
         form_data = {}
 
         form_data["is_active"] = 1 if request.form.get("is_active", "").strip() else 0
+        form_data["mfa_enabled"] = 1 if request.form.get("mfa_enabled", "").strip() else 0
         form_data["username"] = request.form.get("username", "").strip()
         form_data["firstname"] = request.form.get("firstname", "").strip()
         form_data["lastname"] = request.form.get("lastname", "").strip()
@@ -88,6 +89,9 @@ def user_account(username):
         # +- [+] is_active ---------------------------------------------------+
         if form_data["is_active"] != user_account.is_active:
             user_account_values_to_update["is_active"] = form_data["is_active"]
+
+        if form_data["mfa_enabled"] != user_account.mfa_enabled:
+            user_account_values_to_update["mfa_enabled"] = form_data["mfa_enabled"]
 
         # +- [+] firstname ---------------------------------------------------+
         if form_data["firstname"] != user_account.firstname:

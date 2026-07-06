@@ -16,6 +16,8 @@ from flask import g
 from flask import render_template
 
 from snake_flask import get_client_ip
+# from snake_flask.access import MFA
+from snake_flask.access import SnakeAccess
 from snake_flask.common import ensure_snake_common
 from snake_flask.database import SnakeDatabase
 from snake_flask.database import SQLiteBackend
@@ -43,10 +45,11 @@ log = SnakeLogger(profile="development")
 scribe=SnakeScribe()
 permissions = SnakePermissions()
 lists = SnakeLists()
+access = SnakeAccess()
 
-def create_app(test_config=None):
+def create_app(test_config=None, instance_path=None):
 
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_path=instance_path, instance_relative_config=True)
 
     # +- [ DEFAULT CONFIGURATION ] -------------------------------------------+
     # |                                                                       |
@@ -60,7 +63,9 @@ def create_app(test_config=None):
         SESSION_TIMEOUT=60,
         SNAKE_QUIZ_BASE_TEMPLATE="base.html",
         SNAKE_SCRIBE_APP_BASE_TEMPLATE="base.html",
-        SNAKE_SCRIBE_REQUIRE_LOGIN=False
+        SNAKE_SCRIBE_REQUIRE_LOGIN=False,
+        SNAKE_ACCESS_SECRET_KEY="encryptme",
+        SNAKE_ACCESS_BASE_TEMPLATE="base.html",
     )
 
     # +- [ CONFIGURATION FROM FILE ] -----------------------------------------+
@@ -88,6 +93,8 @@ def create_app(test_config=None):
     # | Makes sure ./instance exists.                                         |
     # +-----------------------------------------------------------------------+
     os.makedirs(app.instance_path, exist_ok=True)
+
+    log.info(f"***** INSTANCE******: {app.instance_path}")
 
     app.teardown_appcontext(close_db)
 
@@ -117,6 +124,8 @@ def create_app(test_config=None):
     linguae = ensure_linguae(app)
     linguae.register_package("snake_vault.flask.example.app.linguae")
 
+    access.init_app(app)
+
     ensure_snake_common(app)
 
     login_manager.init_app(app)
@@ -130,6 +139,7 @@ def create_app(test_config=None):
     permissions.init_app(app)
 
     lists.init_app(app)
+    # maf = MFA(app)
 
     # +- [ ROUTES & BLUEPRINTS ] ---------------------------------------------+
     # |                                                                       |

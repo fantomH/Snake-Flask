@@ -25,6 +25,8 @@ class User:
     id: int | None = None
     email: str | None = None
     is_active: bool = False
+    mfa_enabled: bool = False
+    mfa_secret: str | None = None
 
     TABLE_NAME = "users"
 
@@ -44,7 +46,10 @@ class User:
                 lastname TEXT NOT NULL,
                 email TEXT UNIQUE,
                 password_hash TEXT NOT NULL,
-                is_active INTEGER NOT NULL DEFAULT 0
+                is_active INTEGER NOT NULL DEFAULT 0,
+                mfa_enabled INTEGER NOT NULL DEFAULT 0,
+                mfa_secret TEXT
+                
             )
         """)
 
@@ -61,7 +66,9 @@ class User:
         lastname,
         password,
         email=None,
-        is_active=False):
+        is_active=False,
+        mfa_enabled=False,
+        mfa_secret=None):
 
         password_hash = generate_password_hash(password)
 
@@ -74,16 +81,20 @@ class User:
                 lastname,
                 email,
                 password_hash,
-                is_active
+                is_active,
+                mfa_enabled,
+                mfa_secret
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             username,
             firstname,
             lastname,
             email,
             password_hash,
-            int(is_active)
+            int(is_active),
+            int(mfa_enabled),
+            mfa_secret
         ))
 
         conn.commit()
@@ -111,20 +122,21 @@ class User:
             "email",
             "password_hash",
             "is_active",
+            "mfa_enabled",
+            "mfa_secret"
         }
 
         updates = []
         values = []
 
         for field, value in fields.items():
-
             if field not in allowed_fields:
                 continue
 
             updates.append(f"{field} = ?")
 
-            if field == "is_active":
-                value = int(value)
+            if field == {"is_active", "mfa_enabled"}:
+                value = int(bool(value))
 
             values.append(value)
 

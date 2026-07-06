@@ -44,6 +44,7 @@ dependencies = [
     "psycopg",
     "Werkzeug",
     "snake-vault @ git+https://github.com/fantomH/Snake-Vault.git",
+    "click",
 ]
 
 [project.optional-dependencies]
@@ -104,3 +105,6 @@ where = ["src"]
 "snake_flask.example" = [
     "app/templates/**/*.html",
 ]
+
+[project.scripts]
+snake-flask = "snake_flask.cli:main"
