@@ -66,6 +66,7 @@ def create_app(test_config=None, instance_path=None):
         SNAKE_SCRIBE_REQUIRE_LOGIN=False,
         SNAKE_ACCESS_SECRET_KEY="encryptme",
         SNAKE_ACCESS_BASE_TEMPLATE="base.html",
+        SNAKE_ACCESS_MFA_ENABLED=True,
     )
 
     # +- [ CONFIGURATION FROM FILE ] -----------------------------------------+
@@ -94,7 +95,7 @@ def create_app(test_config=None, instance_path=None):
     # +-----------------------------------------------------------------------+
     os.makedirs(app.instance_path, exist_ok=True)
 
-    log.info(f"***** INSTANCE******: {app.instance_path}")
+    # log.info(f"***** INSTANCE******: {app.instance_path}")
 
     app.teardown_appcontext(close_db)
 
@@ -139,7 +140,6 @@ def create_app(test_config=None, instance_path=None):
     permissions.init_app(app)
 
     lists.init_app(app)
-    # maf = MFA(app)
 
     # +- [ ROUTES & BLUEPRINTS ] ---------------------------------------------+
     # |                                                                       |
@@ -149,12 +149,10 @@ def create_app(test_config=None, instance_path=None):
     def index():
 
         display_language = get_language_dictionary()
-        for lang in display_language:
-            print(lang)
 
-        log.info(str(getattr(g, "current_user", None).username) + " from " + get_client_ip(), category="ACCESS")
+        # log.info(str(getattr(g, "current_user", None).username) + " from " + get_client_ip(), category="ACCESS")
 
-        display_app_context()
+        # display_app_context()
 
         return render_template(
             'index.html',

@@ -3,15 +3,16 @@
 # |                                                                           |
 # | Author      : Pascal Malouin (https://github.com/fantomH)                 |
 # | Created     : 2026-07-05 15:29:43 UTC                                     |
-# | Updated     : 2026-07-05 15:29:43 UTC                                     |
+# | Updated     : 2026-07-06 20:00:00 UTC                                     |
 # | Description : Snake-Access API.                                           |
 # +---------------------------------------------------------------------------+
 
 from .extension import SnakeAccess
-from .mfa import MFA, MFASetup
+from .mfa import MFASetup
+from .pin import pin_required
 
 __all__ = [
     "SnakeAccess",
-    "MFA",
     "MFASetup",
+    "pin_required",
 ]

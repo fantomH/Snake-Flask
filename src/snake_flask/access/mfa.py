@@ -47,6 +47,9 @@ class MFA:
         app.config.setdefault("SNAKE_ACCESS_SECRET_KEY", None)
         app.config.setdefault("SNAKE_ACCESS_MFA_ISSUER", "Snake-Access")
         app.config.setdefault("SNAKE_ACCESS_MFA_VALID_WINDOW", 1)
+        app.config.setdefault("SNAKE_ACCESS_MFA_REQUIRED", False)
+        app.config.setdefault("SNAKE_ACCESS_MFA_ENABLED", False)
+        app.config.setdefault("SNAKE_ACCESS_MFA_CONFIRM_TIMEOUT", 10) # time in seconds
 
     def get_secret_key(self) -> str:
         value: SecretProvider | None = current_app.config.get(

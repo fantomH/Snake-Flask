@@ -1,11 +1,11 @@
 <!--
 [ INFO ] -------------------------------------------------------------------- +
-| [Snake-Flask/src/snake_flask/access/templates/snake_access/verify_mfa.html] |
+| [Snake-Flask/src/snake_flask/access/templates/snake_access/verify_pin.html] |
 |                                                                             |
 | Author      : Pascal Malouin (https://github.com/fantomH)                   |
-| Created     : 2026-07-06 12:28:47 UTC                                       |
-| Updated     : 2026-07-06 12:28:47 UTC                                       |
-| Description : MFA verification.                                             |
+| Created     : 2026-07-06 20:00:00 UTC                                       |
+| Updated     : 2026-07-06 20:00:00 UTC                                       |
+| Description : PIN verification.                                             |
 + --------------------------------------------------------------------------- +
 -->
 
@@ -16,11 +16,11 @@
     <div class="container py-5" style="max-width: 420px;">
 
         <h2 class="mb-4">
-            {{ display_language.get("SNAKE_ACCESS-MFA-multifactor_authentication", "Multi-factor Authentication") }}
+            {{ display_language.get("SNAKE_ACCESS-PIN-pin_verification", "PIN Verification") }}
         </h2>
 
         <p>
-            {{ display_language.get("SNAKE_ACCESS-MFA-enter_6_digit_code_from_app", "Enter the 6-digit code from your authenticator application.") }}
+            {{ display_language.get("SNAKE_ACCESS-PIN-enter_pin_to_continue", "Enter your PIN to continue.") }}
         </p>
 
         <form method="post">
@@ -28,20 +28,22 @@
             <div class="mb-3">
 
                 <label
-                    for="code"
+                    for="pin"
                     class="form-label"
                 >
-                    {{ display_language.get("SNAKE_ACCESS-MFA-authentication_code", "Authentication Code") }}
+                    {{ display_language.get("SNAKE_ACCESS-PIN-pin", "PIN") }}
                 </label>
 
                 <input
                     class="form-control form-control-lg text-center"
-                    id="code"
-                    name="code"
-                    type="text"
+                    id="pin"
+                    name="pin"
+                    type="password"
                     inputmode="numeric"
                     autocomplete="one-time-code"
-                    maxlength="6"
+                    minlength="{{ pin_length }}"
+                    maxlength="{{ pin_length }}"
+                    pattern="[0-9]*"
                     autofocus
                     required
                 >
@@ -52,7 +54,7 @@
                 class="btn btn-dark w-100"
                 type="submit"
             >
-                {{ display_language.get("SNAKE_ACCESS-MFA-verify", "Verify") }}
+                {{ display_language.get("SNAKE_ACCESS-PIN-verify", "Verify") }}
             </button>
 
         </form>

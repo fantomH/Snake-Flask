@@ -25,12 +25,14 @@ def get_users_table():
             "column-username-label": "Username",
             "column-is_active-label": "Active",
             "column-mfa_enabled-label": "MFA Enabled",
+            "column-pin_enabled-label": "PIN Enabled",
         },
         "french": {
             "column-edit-text": "Modifier",
             "column-username-label": "Utilisateurs",
             "column-is_active-label": "Actif",
             "column-mfa_enabled-label": "MFA activé",
+            "column-pin_enabled-label": "NIP activé",
         }
     }
 
@@ -63,6 +65,12 @@ def get_users_table():
         {
             "name": "mfa_enabled",
             "label": display_language.get("column-mfa_enabled-label", "MFA Enabled"),
+            "type": "checkbox",
+            "sortable": True
+        },
+        {
+            "name": "pin_enabled",
+            "label": display_language.get("column-pin_enabled-label", "PIN Enabled"),
             "type": "checkbox",
             "sortable": True
         },

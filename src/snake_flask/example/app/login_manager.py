@@ -39,7 +39,7 @@ def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
         if g.current_user is None:
-            return redirect(url_for("auth.login", next=request.path))
+            return redirect(url_for("authentication.auth_routine", next=request.path))
 
         return view(**kwargs)
 

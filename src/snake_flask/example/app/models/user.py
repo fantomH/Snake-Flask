@@ -1,11 +1,11 @@
-# +-------------------------------------------------------------------- INFO -+
+# [ INFO ] ------------------------------------------------------------------ +
 # | [Snake-Flask/src/snake_flask/example/app/models/user.py]                  |
 # |                                                                           |
 # | Author      : Pascal Malouin (https://github.com/fantomH)                 |
 # | Created     : 2026-05-20 12:31:46 UTC                                     |
-# | Updated     : 2026-07-01 17:25:00 UTC                                     |
+# | Updated     : 2026-07-06 21:06:36 UTC                                     |
 # | Description : User model.                                                 |
-# +---------------------------------------------------------------------------+
+# + ------------------------------------------------------------------------- +
 
 import sqlite3
 from dataclasses import dataclass
@@ -27,6 +27,8 @@ class User:
     is_active: bool = False
     mfa_enabled: bool = False
     mfa_secret: str | None = None
+    pin_enabled: bool = False
+    pin_secret: str | None = None
 
     TABLE_NAME = "users"
 
@@ -48,7 +50,9 @@ class User:
                 password_hash TEXT NOT NULL,
                 is_active INTEGER NOT NULL DEFAULT 0,
                 mfa_enabled INTEGER NOT NULL DEFAULT 0,
-                mfa_secret TEXT
+                mfa_secret TEXT,
+                pin_enabled INTEGER NOT NULL DEFAULT 0,
+                pin_secret TEXT
                 
             )
         """)
@@ -84,8 +88,10 @@ class User:
                 is_active,
                 mfa_enabled,
                 mfa_secret
+                pin_enabled,
+                pin_secret
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             username,
             firstname,
@@ -94,7 +100,9 @@ class User:
             password_hash,
             int(is_active),
             int(mfa_enabled),
-            mfa_secret
+            mfa_secret,
+            int(pin_enabled),
+            pin_secret
         ))
 
         conn.commit()
@@ -123,7 +131,9 @@ class User:
             "password_hash",
             "is_active",
             "mfa_enabled",
-            "mfa_secret"
+            "mfa_secret",
+            "pin_enabled",
+            "pin_secret"
         }
 
         updates = []
@@ -135,7 +145,7 @@ class User:
 
             updates.append(f"{field} = ?")
 
-            if field == {"is_active", "mfa_enabled"}:
+            if field == {"is_active", "mfa_enabled", "pin_enabled"}:
                 value = int(bool(value))
 
             values.append(value)

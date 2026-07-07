@@ -7,16 +7,20 @@
 # | Description : Snake-Flask API.                                            |
 # +---------------------------------------------------------------------------+
 
+from . import access
 from . import common
 from . import linguae
+from . import lists
 from . import quiz
 from . import tables
 from . import utils
 from .utils import get_client_ip
 
 __all__ = [
+    "access",
     "common",
     "linguae",
+    "lists",
     "quiz",
     "tables",
     "utils",

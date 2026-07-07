@@ -9,17 +9,19 @@
 + --------------------------------------------------------------------------- +
 -->
 
-{% extends _internal_base_template %}
+{% extends _snake_access_internal_base_template %}
 
 {% block snake_access_content %}
 
     <div class="container py-4" style="max-width: 500px;">
 
-        <h1 class="h3 mb-3">Configure MFA</h1>
+        <h1 class="h3 mb-3">{{ display_language.get("SNAKE_ACCESS-MFA-configure_mfa", "Configure MFA") }}</h1>
 
         <p>
-            Scan this QR code with Google Authenticator, Microsoft Authenticator,
-            Authy, or another TOTP app.
+
+            {{ display_language.get(
+                "SNAKE_ACCESS-MFA-scan_qr_code", "Scan this QR code with Google Authenticator, Microsoft Authenticator,
+            Authy, or another TOTP app.") }}
         </p>
 
         <div class="text-center my-4">
@@ -31,14 +33,14 @@
         </div>
 
         <p class="small text-muted">
-            Manual secret:
+            {{ display_language.get("SNAKE_ACCESS-MFA-manual_secret", "Manual secret:") }}
             <code>{{ secret }}</code>
         </p>
 
         <form method="post">
             <div class="mb-3">
                 <label for="code" class="form-label">
-                    Enter the 6-digit code
+                    {{ display_language.get("SNAKE_ACCESS-MFA-enter_6_digit", "Enter the 6-digit code") }}
                 </label>
 
                 <input
@@ -54,7 +56,7 @@
             </div>
 
             <button type="submit" class="btn btn-dark w-100">
-                Confirm MFA
+                {{ display_language.get("SNAKE_ACCESS-MFA-confirm_mfa", "Confirm MFA") }}
             </button>
         </form>
 

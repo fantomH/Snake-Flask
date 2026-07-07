@@ -1,0 +1,78 @@
+<!--
+[ INFO ] -------------------------------------------------------------------- +
+| [Snake-Flask/src/snake_flask/access/templates/snake_access/pin_setup.html]  |
+|                                                                             |
+| Author      : Pascal Malouin (https://github.com/fantomH)                   |
+| Created     : 2026-07-06 20:00:00 UTC                                       |
+| Updated     : 2026-07-06 20:00:00 UTC                                       |
+| Description : PIN setup.                                                    |
++ --------------------------------------------------------------------------- +
+-->
+
+{% extends _snake_access_internal_base_template %}
+
+{% block snake_access_content %}
+
+    <div class="container py-4" style="max-width: 500px;">
+
+        <h1 class="h3 mb-3">
+            {{ display_language.get("SNAKE_ACCESS-PIN-configure_pin", "Configure PIN") }}
+        </h1>
+
+        <p>
+            {{ display_language.get(
+                "SNAKE_ACCESS-PIN-enter_and_confirm",
+                "Enter and confirm your PIN."
+            ) }}
+        </p>
+
+        <form method="post">
+
+            <div class="mb-3">
+                <label for="pin" class="form-label">
+                    {{ display_language.get("SNAKE_ACCESS-PIN-enter_pin", "Enter PIN") }}
+                </label>
+
+                <input
+                    type="password"
+                    class="form-control form-control-lg text-center"
+                    id="pin"
+                    name="pin"
+                    inputmode="numeric"
+                    autocomplete="new-password"
+                    minlength="{{ pin_length }}"
+                    maxlength="{{ pin_length }}"
+                    pattern="[0-9]*"
+                    required
+                    autofocus
+                >
+            </div>
+
+            <div class="mb-3">
+                <label for="pin_confirm" class="form-label">
+                    {{ display_language.get("SNAKE_ACCESS-PIN-confirm_pin", "Confirm PIN") }}
+                </label>
+
+                <input
+                    type="password"
+                    class="form-control form-control-lg text-center"
+                    id="pin_confirm"
+                    name="pin_confirm"
+                    inputmode="numeric"
+                    autocomplete="new-password"
+                    minlength="{{ pin_length }}"
+                    maxlength="{{ pin_length }}"
+                    pattern="[0-9]*"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">
+                {{ display_language.get("SNAKE_ACCESS-PIN-save_pin", "Save PIN") }}
+            </button>
+
+        </form>
+
+    </div>
+
+{% endblock %}

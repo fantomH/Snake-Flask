@@ -1,12 +1,12 @@
 <!--
-+---------------------------------------------------------------------- INFO -+
+[ INFO ] -------------------------------------------------------------------- +
 | [Snake-Flask/src/snake_flask/example/app/templates/admin/user-account.html] |
 |                                                                             |
 | Author      : Pascal Malouin (https://github.com/fantomH)                   |
 | Created     : 2026-06-16 13:42:03 UTC                                       |
-| Updated     : 2026-06-16 13:42:03 UTC                                       |
+| Updated     : 2026-07-06 21:11:14 UTC                                       |
 | Description : User Account template.                                        |
-+-----------------------------------------------------------------------------+
++ --------------------------------------------------------------------------- +
 -->
 
 {% extends "base.html" %}
@@ -41,6 +41,19 @@
                 {% if user_account.mfa_enabled == 1 %}checked{% endif %}>
           <label class="form-check-label" for="mfa_enabled">
               {{ display_language.get("USERACCOUNT-mfa_enabled", "MFA enabled") }}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-check form-switch">
+          <input class="form-check-input"
+                type="checkbox"
+                id="pin_enabled"
+                name="pin_enabled"
+                {% if user_account.pin_enabled == 1 %}checked{% endif %}>
+          <label class="form-check-label" for="pin_enabled">
+              {{ display_language.get("USERACCOUNT-pin_enabled", "PIN enabled") }}
           </label>
         </div>
       </div>
