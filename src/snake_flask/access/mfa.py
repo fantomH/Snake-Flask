@@ -44,7 +44,9 @@ class MFA:
     def init_app(self, app: Flask) -> None:
         app.extensions["snake_access_mfa"] = self
 
-        app.config.setdefault("SNAKE_ACCESS_SECRET_KEY", None)
+        # [+] --------------------------------------------------------------- +
+        # | Configuration
+        # + ----------------------------------------------------------------- +
         app.config.setdefault("SNAKE_ACCESS_MFA_ISSUER", "Snake-Access")
         app.config.setdefault("SNAKE_ACCESS_MFA_VALID_WINDOW", 1)
         app.config.setdefault("SNAKE_ACCESS_MFA_REQUIRED", False)

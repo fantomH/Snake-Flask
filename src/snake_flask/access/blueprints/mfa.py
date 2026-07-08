@@ -1,10 +1,10 @@
 # [ INFO ] ------------------------------------------------------------------ +
-# | [Snake-Flask/src/snake_flask/access/blueprints/mfa.py]                    |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-07-06 12:14:49 UTC                                     |
-# | Updated     : 2026-07-06 18:54:51 UTC                                     |
-# | Description : MFA blueprints.                                             |
+# | [Snake-Flask/src/snake_flask/access/blueprints/mfa.py]
+# |
+# | Author      : Pascal Malouin (https://github.com/fantomH)
+# | Created     : 2026-07-06 12:14:49 UTC
+# | Updated     : 2026-07-08 11:21:46 UTC
+# | Description : MFA blueprints.
 # + ------------------------------------------------------------------------- +
 
 import base64
@@ -12,16 +12,14 @@ from io import BytesIO
 from time import time
 
 import qrcode
-from flask import (
-    Blueprint,
-    render_template,
-    request,
-    redirect,
-    session,
-    url_for,
-    flash,
-)
+from flask import Blueprint
 from flask import current_app
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import session
+from flask import url_for
 
 from snake_flask.linguae import get_language_dictionary
 
@@ -34,7 +32,7 @@ bp = Blueprint(
     url_prefix="/auth",
 )
 
-@bp.route("/mfa/setup/", methods=["GET", "POST"])
+@bp.route("/mfa-setup/", methods=["GET", "POST"])
 def mfa_setup():
 
     mfa = current_app.extensions["snake_access"].mfa
@@ -100,8 +98,8 @@ def mfa_setup():
         display_language=display_language,
     )
 
-@bp.route("/mfa/verify-mfa/", methods=("GET", "POST"))
-def verify_mfa():
+@bp.route("/mfa-verification/", methods=("GET", "POST"))
+def mfa_verify():
     """
     Verify a user's MFA code after successful password authentication.
     """
@@ -139,7 +137,7 @@ def verify_mfa():
         )
 
     return render_template(
-        "snake_access/verify_mfa.html",
+        "snake_access/mfa_verify.html",
         user=user,
         display_language=display_language,
     )

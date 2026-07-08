@@ -1,10 +1,10 @@
 # [ INFO ] ------------------------------------------------------------------ +
-# | [Snake-Flask/src/snake_flask/access/authentication_manager.py]            |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-07-07 14:37:38 UTC                                     |
-# | Updated     : 2026-07-07 14:37:38 UTC                                     |
-# | Description : Authentication manager.                                     |
+# | [Snake-Flask/src/snake_flask/access/authentication_manager.py]
+# |
+# | Author      : Pascal Malouin (https://github.com/fantomH)
+# | Created     : 2026-07-07 14:37:38 UTC
+# | Updated     : 2026-07-08 12:03:00 UTC
+# | Description : Authentication manager.
 # + ------------------------------------------------------------------------- +
 
 from functools import wraps
@@ -20,6 +20,8 @@ from flask import url_for
 from app.models.user import User
 
 def password_required(view):
+    """Decorator to require the user to confirm password to access a view."""
+
     @wraps(view)
     def wrapped_view(**kwargs):
         if g.current_user is None:
@@ -28,7 +30,24 @@ def password_required(view):
         password_confirmed_at = session.get("password_confirmed_at")
 
         if not password_confirmed_at or time() - password_confirmed_at > current_app.config["SNAKE_ACCESS_PASSWORD_CONFIRM_TIMEOUT"]:
-            return redirect(url_for("authentication.confirm_password", next=request.path))
+            return redirect(url_for("authentication.password_confirm", next=request.path))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+def pin_required(view):
+    """Decorator to require the user to confirm pin to access a view."""
+
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if g.current_user is None:
+            return redirect(url_for("authentication.auth_routine"), next=request.path)
+
+        pin_confirmed_at = session.get("pin_confirmed_at")
+
+        if not pin_confirmed_at or time() - pin_confirmed_at > current_app.config["SNAKE_ACCESS_PIN_CONFIRM_TIMEOUT"]:
+            return redirect(url_for("pin.pin_confirm", next=request.path))
 
         return view(**kwargs)
 

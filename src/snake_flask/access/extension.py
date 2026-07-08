@@ -1,10 +1,10 @@
 # [ INFO ] ------------------------------------------------------------------ +
-# | [Snake-Flask/src/snake_flask/access/extension.py]                         |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-07-06 11:31:03 UTC                                     |
-# | Updated     : 2026-07-06 20:00:00 UTC                                     |
-# | Description : SnakeAccess extention.                                      |
+# | [Snake-Flask/src/snake_flask/access/extension.py]
+# |
+# | Author      : Pascal Malouin (https://github.com/fantomH)
+# | Created     : 2026-07-06 11:31:03 UTC
+# | Updated     : 2026-07-06 20:00:00 UTC
+# | Description : SnakeAccess extention.
 # + ------------------------------------------------------------------------- +
 
 from __future__ import annotations
@@ -40,38 +40,25 @@ class SnakeAccess:
         ensure_snake_common(app)
 
         # [+] --------------------------------------------------------------- +
-        # | Configuration                                                     |
+        # | Configuration
         # + ----------------------------------------------------------------- +
 
-        app.config.setdefault(
-            "SNAKE_ACCESS_BASE_TEMPLATE",
-            None,
-        )
-
-        # Value in seconds.
-        app.config.setdefault(
-            "SNAKE_ACCESS_PASSWORD_CONFIRM_TIMEOUT",
-            60,
-        )
+        app.config.setdefault("SNAKE_ACCESS_BASE_TEMPLATE", None,)
+        app.config.setdefault("SNAKE_ACCESS_SECRET_KEY", None)
+        app.config.setdefault("SNAKE_ACCESS_PASSWORD_CONFIRM_TIMEOUT", 60,) # time in seconds.
 
         # [+] --------------------------------------------------------------- +
-        # | Blueprints and Templates                                          |
+        # | Blueprints and Templates
         # + ----------------------------------------------------------------- +
 
         @app.context_processor
         def inject_base_template():
-            _base_template = app.config[
-                "SNAKE_ACCESS_BASE_TEMPLATE"
-            ]
+            _base_template = app.config["SNAKE_ACCESS_BASE_TEMPLATE"]
 
             if _base_template is None:
-                _internal_base_template = (
-                    "snake_access/base_standalone.html"
-                )
+                _internal_base_template = ("snake_access/base_standalone.html")
             else:
-                _internal_base_template = (
-                    "snake_access/base_extension.html"
-                )
+                _internal_base_template = ("snake_access/base_extension.html")
 
             return {
                 "_snake_access_internal_base_template": _internal_base_template,

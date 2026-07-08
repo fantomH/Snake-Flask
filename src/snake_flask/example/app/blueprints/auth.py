@@ -18,7 +18,7 @@ from flask import session
 from flask import url_for
 from werkzeug.security import check_password_hash
 
-from snake_flask.access.authentication_manager import password_required
+from snake_flask.access.authentication_manager import pin_required
 from snake_flask.linguae import get_language_dictionary
 from snake_vault.utils.data_validator import is_valid_password
 
@@ -42,24 +42,6 @@ def login():
             if user.is_active:
                 if check_password_hash(user.password_hash, password):
 
-                    # if user.mfa_enabled:
-
-                        # session.clear()
-                        # session["pending_user_id"] = user.id
-
-                        # if user.mfa_secret:
-                            # return redirect(url_for("mfa.verify_mfa"))
-
-                        # return redirect(url_for("mfa.mfa_setup"))
-
-
-                    # if user.pin_enabled:
-                        # if not user.pin_secret:
-                            # return redirect(url_for("pin.pin_setup"))
-
-                    # [+] --------------------------------------------------- +
-                    # | authentication routine.                               |
-                    # + ----------------------------------------------------- +
                     session.clear()
                     session["user_id"] = user.id
 
@@ -236,7 +218,7 @@ def sign_up():
     )
 
 @bp.route("/my-account/", methods=["GET"])
-@password_required
+@pin_required
 def my_account():
 
     display_language = get_language_dictionary()

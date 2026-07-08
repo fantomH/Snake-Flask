@@ -1,22 +1,23 @@
 # [ INFO ] ------------------------------------------------------------------ +
-# | [Snake-Flask/src/snake_flask/access/blueprints/pin.py]                    |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-07-06 20:00:00 UTC                                     |
-# | Updated     : 2026-07-06 20:00:00 UTC                                     |
-# | Description : PIN blueprints.                                             |
+# | [Snake-Flask/src/snake_flask/access/blueprints/pin.py]
+# |
+# | Author      : Pascal Malouin (https://github.com/fantomH)
+# | Created     : 2026-07-06 20:00:00 UTC
+# | Updated     : 2026-07-08 11:14:25 UTC
+# | Description : PIN blueprints.
 # + ------------------------------------------------------------------------- +
 
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from time import time
+
+from flask import Blueprint
+from flask import current_app
+from flask import flash
+from flask import g
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import session
+from flask import url_for
 
 from snake_flask.linguae import get_language_dictionary
 
@@ -29,33 +30,33 @@ bp = Blueprint(
     url_prefix="/auth",
 )
 
-
-def _get_pending_user():
-    user_id = session.get("pending_user_id") or session.get("user_id")
-
-    if user_id is None:
-        return None
-
-    return User.fetch_by_id(user_id)
-
-
-@bp.route("/pin/setup/", methods=["GET", "POST"])
+@bp.route("/pin-setup/", methods=["GET", "POST"])
 def pin_setup():
+
     pin = current_app.extensions["snake_access"].pin
     display_language = get_language_dictionary()
-    user = _get_pending_user()
+    pin_length = current_app.config["SNAKE_ACCESS_PIN_LENGTH"]
+
+    user_id = session.get("user_id")
+
+    if user_id is None:
+        return redirect(url_for("authentication.auth_routine"))
+
+    user = User.fetch_by_id(user_id)
 
     if user is None:
-        session.pop("pending_user_id", None)
-        return redirect(url_for("auth.login"))
-
-    pin_length = pin.get_length()
+        session.pop("user_id", None)
+        return redirect(url_for("authentication.auth_routine"))
 
     if request.method == "POST":
+
         pin_value = request.form.get("pin", "").strip()
         pin_confirm = request.form.get("pin_confirm", "").strip()
 
-        if not pin.is_valid_format(pin_value):
+
+        if not ( len(pin_value) == pin_length
+            and pin_value.isdigit()):
+
             flash(
                 display_language.get(
                     "SNAKE_ACCESS-PIN-invalid_format",
@@ -83,9 +84,6 @@ def pin_setup():
             pin_enabled=True,
         )
 
-        session.pop("pending_user_id", None)
-        session["pin_verified_user_id"] = user.id
-
         flash(
             display_language.get(
                 "SNAKE_ACCESS-PIN-configured_successfully",
@@ -94,12 +92,7 @@ def pin_setup():
             "success",
         )
 
-        next_url = session.pop("pin_next", None)
-
-        if next_url:
-            return redirect(next_url)
-
-        return redirect(url_for("index"))
+        return redirect(url_for("authentication.auth_routine"))
 
     return render_template(
         "snake_access/pin_setup.html",
@@ -117,11 +110,17 @@ def verify_pin():
 
     pin = current_app.extensions["snake_access"].pin
     display_language = get_language_dictionary()
-    user = _get_pending_user()
+
+    user_id = session.get("user_id")
+
+    if user_id is None:
+        return redirect(url_for("authentication.auth_routine"))
+
+    user = User.fetch_by_id(user_id)
 
     if user is None:
-        session.pop("pending_user_id", None)
-        return redirect(url_for("auth.login"))
+        session.pop("user_id", None)
+        return redirect(url_for("authentication.auth_routine"))
 
     pin_secret = getattr(user, "pin_secret", None)
 
@@ -129,24 +128,19 @@ def verify_pin():
         session["pending_user_id"] = user.id
         return redirect(url_for("pin.pin_setup"))
 
-    pin_length = pin.get_length()
+    pin_length = current_app.config["SNAKE_ACCESS_PIN_LENGHT"]
 
     if request.method == "POST":
+
         pin_value = request.form.get("pin", "").strip()
 
         if pin.verify_pin(
             encrypted_secret=pin_secret,
             pin=pin_value,
         ):
-            session.pop("pending_user_id", None)
-            session["pin_verified_user_id"] = user.id
+            session["pin_confirm_at"] = time()
 
-            next_url = session.pop("pin_next", None)
-
-            if next_url:
-                return redirect(next_url)
-
-            return redirect(url_for("index"))
+            return redirect(url_for("authentication.auth_routine"))
 
         flash(
             display_language.get(
@@ -157,8 +151,51 @@ def verify_pin():
         )
 
     return render_template(
-        "snake_access/verify_pin.html",
+        "snake_access/pin_verify.html",
         user=user,
         pin_length=pin_length,
+        display_language=display_language,
+    )
+
+@bp.route("/pin-confirmation/", methods=["GET", "POST"])
+def pin_confirm():
+
+    pin = current_app.extensions["snake_access"].pin
+    display_language = get_language_dictionary()
+
+    if g.current_user is None:
+        return redirect(url_for("auth.login"))
+
+    if not g.current_user.pin_enabled:
+        return "Your account is not configured to use PIN."
+
+    if not g.current_user.pin_secret:
+        return redirect(url_for("pin.pin_setup", next=request.path))
+        
+    if request.method == "POST":
+
+        _pin = request.form.get("pin")
+
+        if pin.verify_pin(
+            encrypted_secret=g.current_user.pin_secret,
+            pin=_pin):
+            session["pin_confirmed_at"] = time()
+
+            next_page = request.args.get("next")
+
+            if (
+                not next_page
+                or not next_page.startswith("/")
+                or next_page.startswith("/logout")
+            ):
+                next_page = url_for("index")
+
+            return redirect(next_page)
+
+        flash(display_language.get("SNAKE_ACCESS_wrong_pin", "Wrong PIN."), "danger")
+
+    return render_template(
+        "snake_access/pin_confirm.html",
+        title=display_language.get("SNAKE_ACCESS-confirm_pin", "Confirm PIN"),
         display_language=display_language,
     )

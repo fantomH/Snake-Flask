@@ -30,10 +30,10 @@ bp = Blueprint(
     "authentication",
     __name__,
     template_folder="../templates",
-    url_prefix="/auth",
+    url_prefix="/access",
 )
 
-@bp.route("/authentication/")
+@bp.route("/auth/")
 def auth_routine():
 
     user_id = session.get("user_id", None)
@@ -46,6 +46,11 @@ def auth_routine():
 
     user = User.fetch_by_id(session["user_id"])
     
+    # [+] ------------------------------------------------------------------- +
+    # | MFA
+    # | 
+    # | This part takes care of setting up and login verification of MFA.
+    # + --------------------------------------------------------------------- +
     if (
         current_app.config["SNAKE_ACCESS_MFA_ENABLED"]
         or current_app.config["SNAKE_ACCESS_MFA_REQUIRED"]
@@ -55,9 +60,22 @@ def auth_routine():
                 mfa_confirmed_at = session.get("mfa_confirmed_at")
                 mfa_timeout = current_app.config["SNAKE_ACCESS_MFA_CONFIRM_TIMEOUT"]
                 if not mfa_confirmed_at or time() - mfa_confirmed_at > mfa_timeout:
-                    return redirect(url_for("mfa.verify_mfa"))
+                    return redirect(url_for("mfa.mfa_verify"))
             else:
                 return redirect(url_for("mfa.mfa_setup"))
+
+    # [+] ------------------------------------------------------------------- +
+    # | PIN
+    # | 
+    # | This part takes care of setting up PIN only.
+    # + --------------------------------------------------------------------- +
+    if (
+        current_app.config["SNAKE_ACCESS_PIN_ENABLED"]
+        or current_app.config["SNAKE_ACCESS_PIN_REQUIRED"]
+    ):
+        if user.pin_enabled:
+            if not user.pin_secret:
+                return redirect(url_for("pin.pin_setup"))
 
     session["user_id"] = user.id
     session.permanent = True
@@ -73,8 +91,8 @@ def auth_routine():
 
     return redirect(next_page)
 
-@bp.route("/confirm-password/", methods=["GET", "POST"])
-def confirm_password():
+@bp.route("/password-confirmation/", methods=["GET", "POST"])
+def password_confirm():
 
     display_language = get_language_dictionary()
 
@@ -101,7 +119,7 @@ def confirm_password():
         flash(display_language.get("SNAKE_ACCESS_wrong_password", "Wrong password."), "danger")
 
     return render_template(
-        "snake_access/confirm_password.html",
+        "snake_access/password_confirm.html",
         title=display_language.get("SNAKE_ACCESS-confirm_password", "Confirm password"),
         display_language=display_language,
     )
