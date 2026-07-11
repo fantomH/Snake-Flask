@@ -56,6 +56,13 @@ def get_database_extension() -> SnakeDatabase:
     return current_app.extensions["snake_database"]
 
 
+def ensure_snake_database(app):
+    if "snake_database" not in app.extensions:
+        SnakeDatabase(app)
+
+    return app.extensions["snake_database"]
+
+
 def get_db(name: str = "default") -> Any:
     extension = get_database_extension()
 

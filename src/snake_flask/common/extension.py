@@ -16,7 +16,7 @@ class SnakeCommon:
         if app is not None:
             self.init_app(app)
 
-    def init_app(self, app):
+    def init_app(self, app: Flask) -> None:
 
         if "snake_common" in app.extensions:
             return app.extensions["snake_common"]

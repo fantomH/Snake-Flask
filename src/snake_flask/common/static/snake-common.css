@@ -1,11 +1,13 @@
 /*
-+---------------------------------------------------------------------- INFO -+
-| [Snake-Flask/src/snake_flask/common/static/snake-common.css]                |
-|                                                                             |
-| Author      : Pascal Malouin (https://github.com/fantomH)                   |
-| Created     : 2026-06-30 20:48:20 UTC                                       |
-| Updated     : 2026-06-30 20:48:20 UTC                                       |
-| Description : Snake-Common CSS.                                             |
++-----------------------------------------------------------------------------+
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/src/snake_flask/common/static/snake-common.css]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-06-30 20:48:20 UTC
+ Updated     : 2026-07-10 20:05:58 UTC
+ Description : SnakeCommon CSS.
 +-----------------------------------------------------------------------------+
 */
 
@@ -32,9 +34,11 @@
 }
 
 /*
-┌────────────────────────────────────────────────────────────── <blockquote> ─┐
-│ ref. <https://css-tricks.com/examples/Blockquotes>                          │
-└─────────────────────────────────────────────────────────────────────────────┘
++-----------------------------------------------------------------------------+
+[+] <blockquote>
+
+    ref. <https://css-tricks.com/examples/Blockquotes> 
++-----------------------------------------------------------------------------+
 */
 
 blockquote {
@@ -138,20 +142,19 @@ tr:last-child td {
     border-bottom: none; /* remove bottom border on last row */
 }
 
-
 /*
 +-----------------------------------------------------------------------------+
-[+] BOX                                                                       |
-|                                                                             |
-| Intended for block-level containers:                                        |
-|                                                                             |
-|     <div class="sc-box">                                                    |
-|     <section class="sc-box">                                                |
-|     <article class="sc-box">                                                |
-|                                                                             |
-| Not intended for inline elements such as:                                   |
-|                                                                             |
-|     <span class="sc-box">                                                   |
+[+] BOX
+
+ Intended for block-level containers:
+
+     <div class="sc-box">
+     <section class="sc-box">
+     <article class="sc-box">
+
+ Not intended for inline elements such as:
+
+     <span class="sc-box">
 +-----------------------------------------------------------------------------+
 */
 
@@ -203,7 +206,7 @@ tr:last-child td {
 
 /*
 +-----------------------------------------------------------------------------+
-[+] CONTAINER                                                                 |
+[+] CONTAINER
 +-----------------------------------------------------------------------------+
 */
 
@@ -218,27 +221,27 @@ tr:last-child td {
 
 /*
 +-----------------------------------------------------------------------------+
-[+] INLINE B64 ICON                                                           |
-|                                                                             |
-| Class to insert an inline icon.                                             |
-|                                                                             |
-| USAGE :                                                                     |
-|                                                                             |
-| ```html                                                                     |
-| <span class="fh-inline-b64-icon"                                            |
-|       style="background-image:url(data:image/png;base64,...)">              |
-| </span>                                                                     |
-| ```                                                                         |
-|                                                                             |
-| The background-image can also be defined in a css block or file.            |
-|                                                                             |
-| ```css                                                                      |
-| .gmail {                                                                    |
-|     background-image: url("data:image/png;base64,...");                     |
-| }                                                                           |
-| ```                                                                         |
-|                                                                             |
-| Then, be used in the html as <i class="fh-inline-b64-icon gmail"></i>.      |
+[+] INLINE B64 ICON
+
+ Class to insert an inline icon.
+
+ USAGE:
+
+ ```html
+ <span class="fh-inline-b64-icon"
+       style="background-image:url(data:image/png;base64,...)">
+ </span>
+ ```
+
+ The background-image can also be defined in a css block or file.
+
+ ```css
+ .gmail {
+     background-image: url("data:image/png;base64,...");
+ }
+ ```
+
+ Then, be used in the html as <i class="fh-inline-b64-icon gmail"></i>.
 +-----------------------------------------------------------------------------+
 */
 
@@ -321,4 +324,14 @@ tr:last-child td {
     bottom: 0px;
     z-index: 9999;
     width: 100%;
+}
+
+/*
++-----------------------------------------------------------------------------+
+[+] <input-group-text>
++-----------------------------------------------------------------------------+
+*/
+
+.input-group-text {
+    min-width: 200px;
 }

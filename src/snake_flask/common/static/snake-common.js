@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".snake-list").forEach(setupSnakeList);
 
+    document
+        .querySelectorAll("[data-toggle-password]")
+        .forEach(setupPasswordToggle);
+
     setupSubNavbar();
     setupAutoDismissAlerts();
     setupInactivityLogout();
@@ -407,264 +411,37 @@ function setupInactivityLogout() {
 
 
 /*
- * +--------------------------------------------------------------------------+
- * [+] PASSWORD TOGGLE                                                        |
- * |                                                                          |
- * | Show / hide a password input.                                             |
- * +--------------------------------------------------------------------------+
- */
++-----------------------------------------------------------------------------+
+[+] PASSWORD TOGGLE
 
-/*
- * setupPasswordToggle(buttonId, inputId)
- *
- * Connect a button to a password input.
- *
- * The button should contain a Material Symbols icon.
- */
-function setupPasswordToggle(buttonId, inputId) {
+    Show / hide a password input.
++-----------------------------------------------------------------------------+
+*/
+function setupPasswordToggle(button) {
 
-    const button = document.getElementById(buttonId);
+    const inputId = button.dataset.passwordInput;
     const input = document.getElementById(inputId);
 
-    if (!button || !input) {
+    if (!input) {
         return;
     }
 
     button.addEventListener("click", function () {
 
-        const icon = this.querySelector(".material-symbols-outlined");
+        const icon = button.querySelector(".material-symbols-outlined");
 
         if (input.type === "password") {
-
             input.type = "text";
-
             if (icon) {
                 icon.textContent = "visibility_off";
             }
-
         } else {
-
             input.type = "password";
-
             if (icon) {
                 icon.textContent = "visibility";
             }
-
         }
 
     });
-
-}
-
-/*
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".snake-list").forEach(function (list) {
-        setupSnakeList(list);
-    });
-});
-
-function setupSnakeList(list) {
-    const dataUrl = list.dataset.url;
-
-    const searchInput = list.querySelector(".snake-list-search");
-    const pageSizeSelect = list.querySelector(".snake-list-page-size");
-    const body = list.querySelector(".snake-list-body");
-    const previousButton = list.querySelector(".snake-list-prev");
-    const nextButton = list.querySelector(".snake-list-next");
-    const info = list.querySelector(".snake-list-info");
-
-    let page = 1;
-    let timer = null;
-    let controller = null;
-
-    function getBodyData() {
-        return body.querySelector(".snake-list-data");
-    }
-
-    function syncFromBody() {
-        const data = getBodyData();
-
-        if (!data) {
-            return;
-        }
-
-        page = parseInt(data.dataset.page || "1", 10);
-
-        const totalPages = parseInt(data.dataset.totalPages || "1", 10);
-        const totalItems = parseInt(data.dataset.totalItems || "0", 10);
-        const hasPrevious = data.dataset.hasPrevious === "true";
-        const hasNext = data.dataset.hasNext === "true";
-
-        previousButton.disabled = !hasPrevious;
-        nextButton.disabled = !hasNext;
-
-        info.textContent = `Page ${page} of ${totalPages} — ${totalItems} result${totalItems === 1 ? "" : "s"}`;
-    }
-
-    function buildUrl() {
-        const params = new URLSearchParams();
-
-        params.set("q", searchInput.value);
-        params.set("page", page);
-        params.set("page_size", pageSizeSelect.value);
-
-        return `${dataUrl}?${params.toString()}`;
-    }
-
-    function load() {
-        if (controller) {
-            controller.abort();
-        }
-
-        controller = new AbortController();
-
-        fetch(buildUrl(), {
-            headers: {
-                "X-Snake-List": "1",
-            },
-            signal: controller.signal,
-        })
-            .then(function (response) {
-                return response.text();
-            })
-            .then(function (html) {
-                body.innerHTML = html;
-                syncFromBody();
-            })
-            .catch(function (error) {
-                if (error.name !== "AbortError") {
-                    console.error(error);
-                }
-            });
-    }
-
-    function debouncedLoad() {
-        clearTimeout(timer);
-
-        timer = setTimeout(function () {
-            page = 1;
-            load();
-        }, 300);
-    }
-
-    searchInput.addEventListener("input", debouncedLoad);
-
-    pageSizeSelect.addEventListener("change", function () {
-        page = 1;
-        load();
-    });
-
-    previousButton.addEventListener("click", function () {
-        if (page > 1) {
-            page -= 1;
-            load();
-        }
-    });
-
-    nextButton.addEventListener("click", function () {
-        page += 1;
-        load();
-    });
-
-    syncFromBody();
-}
-
-/*
- * +--------------------------------------------------------------------------+
- * [+] SUB NAVBAR                                                             |
- * |                                                                          |
- * | Sub navbar resizer.                                                      |
- * +--------------------------------------------------------------------------+
- */
-document.addEventListener("DOMContentLoaded", function () {
-    const parentNavbar = document.querySelector(".sc-main-navbar, body > nav.navbar");
-    const subNavbar = document.querySelector(".sc-sub-navbar");
-
-    if (!parentNavbar || !subNavbar) {
-        return;
-    }
-
-    const setSubNavbarOffset = function () {
-        const height = parentNavbar.offsetHeight;
-        document.documentElement.style.setProperty(
-            "--sc-parent-navbar-height",
-            height + "px"
-        );
-    };
-
-    setSubNavbarOffset();
-    window.addEventListener("resize", setSubNavbarOffset);
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const alerts = document.querySelectorAll(".auto-dismiss");
-
-    alerts.forEach(function(alert) {
-
-        setTimeout(function() {
-
-            alert.classList.remove("show");
-
-            setTimeout(function() {
-                alert.remove();
-            }, 150);
-
-        }, 5000);
-
-    });
-
-});
-
-let inactivityTimer;
-
-function resetInactivityTimer() {
-
-    clearTimeout(inactivityTimer);
-
-    inactivityTimer = setTimeout(function () {
-
-        window.location.href = "/logout";
-
-    }, 60 * 60 * 1000); // 60 minutes
-}
-
-[
-    "mousemove",
-    "mousedown",
-    "keypress",
-    "touchstart",
-    "scroll"
-].forEach(function(event) {
-
-    document.addEventListener(event, resetInactivityTimer);
-
-});
-
-resetInactivityTimer();
-
-function setupPasswordToggle(buttonId, inputId) {
-
-    document
-        .getElementById(buttonId)
-        .addEventListener("click", function () {
-
-            const input = document.getElementById(inputId);
-            const icon = this.querySelector(".material-symbols-outlined");
-
-            if (input.type === "password") {
-
-                input.type = "text";
-                icon.textContent = "visibility_off";
-
-            } else {
-
-                input.type = "password";
-                icon.textContent = "visibility";
-
-            }
-
-        });
 
 }

@@ -1,10 +1,12 @@
-# +-------------------------------------------------------------------- INFO -+
-# | [Snake-Flask/src/snake_flask/example/app/__init__.py]                     |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-05-19 11:30:00 UTC                                     |
-# | Updated     : 2026-07-01 17:55:35 UTC                                     |
-# | Description : Flask-Example.                                              |
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/example/app/__init__.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-05-19 11:30:00 UTC
+# Updated     : 2026-07-08 21:02:46 UTC
+# Description : FlaskExample.
 # +---------------------------------------------------------------------------+
 
 import os
@@ -16,23 +18,22 @@ from flask import g
 from flask import render_template
 
 from snake_flask import get_client_ip
-# from snake_flask.access import MFA
 from snake_flask.access import SnakeAccess
 from snake_flask.common import ensure_snake_common
-from snake_flask.database import SnakeDatabase
 from snake_flask.database import SQLiteBackend
+from snake_flask.database import SnakeDatabase
 from snake_flask.database import close_db
 from snake_flask.database import migrate_command
 from snake_flask.linguae import ensure_linguae
 from snake_flask.linguae import get_language_dictionary
 from snake_flask.lists import SnakeLists
+from snake_flask.permissions import SnakePermissions
 from snake_flask.quiz import SnakeQuiz
 from snake_flask.tables import SnakeTables
 from snake_flask.utils import display_app_context
 
 from snake_vault.snake_utils.logger import SnakeLogger
 from snake_scribe import SnakeScribe
-from snake_permissions import SnakePermissions
 
 from .db import init_db
 from .login_manager import init_app
@@ -51,10 +52,11 @@ def create_app(test_config=None, instance_path=None):
 
     app = Flask(__name__, instance_path=instance_path, instance_relative_config=True)
 
-    # +- [ DEFAULT CONFIGURATION ] -------------------------------------------+
-    # |                                                                       |
-    # | Example of app configuration inside the app factory.                  |
-    # | It is suggested to insert the config in instance/config.py instead.   |
+    # +-----------------------------------------------------------------------+
+    # [+] Default Configuration
+    #
+    # Example of app configuration inside the app factory.
+    # It is suggested to insert the config in instance/config.py instead.
     # +-----------------------------------------------------------------------+
     app.config.from_mapping(
         # DEFAULT_LANGUAGE="english",
@@ -67,6 +69,8 @@ def create_app(test_config=None, instance_path=None):
         SNAKE_ACCESS_SECRET_KEY="encryptme",
         SNAKE_ACCESS_BASE_TEMPLATE="base.html",
         SNAKE_ACCESS_MFA_ENABLED=True,
+        SNAKE_ACCESS_PIN_ENABLED=True,
+        SNAKE_PERMISSIONS_DATABASE=Path(app.instance_path) / "snake_permissions.sqlite",
     )
 
     # +- [ CONFIGURATION FROM FILE ] -----------------------------------------+
@@ -106,6 +110,11 @@ def create_app(test_config=None, instance_path=None):
     db.register(
         "default",
         SQLiteBackend(Path(app.instance_path) / "data.sqlite"),
+    )
+
+    db.register(
+        "permissions",
+        SQLiteBackend(app.config["SNAKE_PERMISSIONS_DATABASE"]),
     )
 
     db.init_app(app)

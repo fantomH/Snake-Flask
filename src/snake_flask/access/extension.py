@@ -39,16 +39,21 @@ class SnakeAccess:
         linguae.register_package("snake_flask.access.dictionaries")
         ensure_snake_common(app)
 
-        # [+] --------------------------------------------------------------- +
-        # | Configuration
+        # +------------------------------------------------------------------ +
+        # [+] CONFIGURATION
         # + ----------------------------------------------------------------- +
 
-        app.config.setdefault("SNAKE_ACCESS_BASE_TEMPLATE", None,)
-        app.config.setdefault("SNAKE_ACCESS_SECRET_KEY", None)
-        app.config.setdefault("SNAKE_ACCESS_PASSWORD_CONFIRM_TIMEOUT", 60,) # time in seconds.
+        _default_configuration = {
+            "SNAKE_ACCESS_BASE_TEMPLATE": None,
+            "SNAKE_ACCESS_SECRET_KEY": None,
+            "SNAKE_ACCESS_PASSWORD_CONFIRM_TIMEOUT": 60, # time in seconds.
+        }
 
-        # [+] --------------------------------------------------------------- +
-        # | Blueprints and Templates
+        for key, value in _default_configuration.items():
+            app.config.setdefault(key, value)
+
+        # +------------------------------------------------------------------ +
+        # [+] BLUEPRINTS + TEMPLATES
         # + ----------------------------------------------------------------- +
 
         @app.context_processor

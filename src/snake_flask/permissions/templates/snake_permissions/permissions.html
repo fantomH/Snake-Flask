@@ -1,0 +1,33 @@
+{% extends _snake_permissions_internal_base_template %}
+
+{% block snake_content %}
+
+    <div class="sc-container-fluid">
+
+        <form method="POST" action="">
+            <h1>Permissions</h1>
+
+            <div class="form-group">
+ 
+                <div class="sc-box sc-box-light">
+                    <input type="text"
+                          name="name"
+                          placeholder="manage_users.create"
+                          required>
+
+                    <input type="text"
+                          name="description"
+                          placeholder="Description">
+
+                    <button type="submit">Add Permission</button>
+                </div>
+          </div>
+        </form>
+
+        <div class="sc-box sc-box-dark">
+            {{ permissions_table.load() | safe }}
+        </div>
+
+    </div>
+
+{% endblock %}
