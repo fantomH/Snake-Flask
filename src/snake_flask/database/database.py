@@ -1,11 +1,14 @@
-# +-------------------------------------------------------------------- INFO -+
-# | [Snake-Flask/src/snake_flask/database/database.py]                        |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-05-19 11:56:16 UTC                                     |
-# | Updated     : 2026-06-25 10:17:24 UTC                                     |
-# | Description : Database.                                                   |
 # +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/database/database.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-05-19 11:56:16 UTC
+# Updated     : 2026-07-13 11:03:10 UTC
+# Description : Database.
+# +---------------------------------------------------------------------------+
+
 import sqlite3
 from pathlib import Path
 

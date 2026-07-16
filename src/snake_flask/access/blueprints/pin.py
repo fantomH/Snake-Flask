@@ -1,11 +1,13 @@
-# [ INFO ] ------------------------------------------------------------------ +
-# | [Snake-Flask/src/snake_flask/access/blueprints/pin.py]
-# |
-# | Author      : Pascal Malouin (https://github.com/fantomH)
-# | Created     : 2026-07-06 20:00:00 UTC
-# | Updated     : 2026-07-08 11:14:25 UTC
-# | Description : PIN blueprints.
-# + ------------------------------------------------------------------------- +
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/access/blueprints/pin.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-07-06 20:00:00 UTC
+# Updated     : 2026-07-15 16:24:52 UTC
+# Description : PIN routes.
+# +---------------------------------------------------------------------------+
 
 from time import time
 
@@ -21,7 +23,7 @@ from flask import url_for
 
 from snake_flask.linguae import get_language_dictionary
 
-from app.models.user import User
+from ..user import User
 
 bp = Blueprint(
     "pin",
@@ -102,7 +104,7 @@ def pin_setup():
     )
 
 
-@bp.route("/pin/verify-pin/", methods=("GET", "POST"))
+@bp.route("/pin-verification/", methods=("GET", "POST"))
 def verify_pin():
     """
     Verify a user's PIN after successful password authentication.

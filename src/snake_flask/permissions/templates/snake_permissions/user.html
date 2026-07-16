@@ -1,0 +1,161 @@
+<!--
++-----------------------------------------------------------------------------+ 
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/src/snake_flask/permissions/templates/snake_permissions/user.html]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-07-14 15:51:17 UTC
+ Updated     : 2026-07-14 15:51:17 UTC
+ Description : User template
++-----------------------------------------------------------------------------+
+-->
+
+{% extends _snake_permissions_internal_base_template %}
+
+{% block snake_content %}
+    <div class="sc-container-fluid py-4">
+
+        <header class="mb-4">
+            <h1 class="h3 mb-1">
+                User permissions
+            </h1>
+
+            <div class="text-body-secondary">
+                User ID: {{ user_id }}
+            </div>
+        </header>
+
+        <form method="post">
+
+            <section class="mb-5">
+                <h2 class="h4 mb-3">
+                    Roles
+                </h2>
+
+                {% if roles %}
+                    <div class="d-flex flex-wrap gap-3">
+                        {% for role in roles %}
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="role_ids"
+                                    value="{{ role.id }}"
+                                    id="role-{{ role.id }}"
+                                    {% if role.id in selected_role_ids %}
+                                        checked
+                                    {% endif %}
+                                >
+
+                                <label
+                                    class="form-check-label"
+                                    for="role-{{ role.id }}"
+                                    {% if role.description %}
+                                        title="{{ role.description }}"
+                                    {% endif %}
+                                >
+                                    {{ role.name }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-body-secondary mb-0">
+                        No roles are available.
+                    </p>
+                {% endif %}
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 mb-3">
+                    Permission Sets
+                </h2>
+
+                {% if permission_sets %}
+                    <div class="d-flex flex-wrap gap-3">
+                        {% for permission_set in permission_sets %}
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="permission_set_ids"
+                                    value="{{ permission_set.id }}"
+                                    id="permission-set-{{ permission_set.id }}"
+                                    {% if permission_set.id in
+                                        selected_permission_set_ids %}
+                                        checked
+                                    {% endif %}
+                                >
+
+                                <label
+                                    class="form-check-label"
+                                    for="permission-set-{{ permission_set.id }}"
+                                    {% if permission_set.description %}
+                                        title="{{ permission_set.description }}"
+                                    {% endif %}
+                                >
+                                    {{ permission_set.name }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-body-secondary mb-0">
+                        No permission sets are available.
+                    </p>
+                {% endif %}
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 mb-3">
+                    Permissions
+                </h2>
+
+                {% if permissions %}
+                    <div class="d-flex flex-wrap gap-3">
+                        {% for permission in permissions %}
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="permission_ids"
+                                    value="{{ permission.id }}"
+                                    id="permission-{{ permission.id }}"
+                                    {% if permission.id in selected_permission_ids %}
+                                        checked
+                                    {% endif %}
+                                >
+
+                                <label
+                                    class="form-check-label"
+                                    for="permission-{{ permission.id }}"
+                                    {% if permission.description %}
+                                        title="{{ permission.description }}"
+                                    {% endif %}
+                                >
+                                    {{ permission.name }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-body-secondary mb-0">
+                        No permissions are available.
+                    </p>
+                {% endif %}
+            </section>
+
+            <div class="d-flex justify-content-end">
+                <button
+                    class="btn btn-primary"
+                    type="submit"
+                >
+                    Save
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+{% endblock %}

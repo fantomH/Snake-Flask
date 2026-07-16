@@ -2,12 +2,12 @@
 +-----------------------------------------------------------------------------+ 
 [+] INFO
 +-----------------------------------------------------------------------------+
- [Snake-Flask/src/snake_flask/permissions/templates/snake_permissions/permissions.html]
+ [Snake-Flask/src/snake_flask/permissions/templates/snake_permissions/roles.html]
 
  Author      : Pascal Malouin (https://github.com/fantomH)
- Created     : 2026-07-13 01:07:37 UTC
- Updated     : 2026-07-13 01:07:37 UTC
- Description : Permissions template.
+ Created     : 2026-07-13 01:39:20 UTC
+ Updated     : 2026-07-13 01:39:24 UTC
+ Description : Roles template.
 +-----------------------------------------------------------------------------+
 -->
 
@@ -18,7 +18,7 @@
     <div class="sc-container-fluid">
 
         <form method="POST" action="">
-            <h1>Permissions</h1>
+            <h1>Roles</h1>
 
             <div class="form-group sc-box sc-box-light">
  
@@ -26,7 +26,7 @@
                     <input type="text"
                           name="name"
                           class="form-control"
-                          placeholder="manage_users.create"
+                          placeholder="SUPERUSER"
                           required>
 
                     <input type="text"
@@ -36,14 +36,14 @@
 
                     <button type="submit"
                             class="btn btn-dark">
-                               Add Permission
+                               Add Role
                     </button>
                 </div>
           </div>
         </form>
 
         <div class="sc-box sc-box-dark">
-            {{ permissions_table.load() | safe }}
+            {{ roles_table.load() | safe }}
         </div>
 
     </div>

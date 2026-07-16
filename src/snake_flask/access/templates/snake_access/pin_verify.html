@@ -25,35 +25,41 @@
 
         <form method="post">
 
-            <div class="mb-3">
+            <div class="sc-box sc-box-light">
 
-                <label
-                    for="pin"
-                    class="form-label"
-                >
-                    {{ display_language.get("SNAKE_ACCESS-PIN-pin", "PIN") }}
-                </label>
+                <div class="input-group mb-3">
 
-                <input
-                    class="form-control form-control-lg text-center"
-                    id="pin"
-                    name="pin"
-                    type="password"
-                    inputmode="numeric"
-                    autocomplete="one-time-code"
-                    minlength="{{ pin_length }}"
-                    maxlength="{{ pin_length }}"
-                    pattern="[0-9]*"
-                    autofocus
-                    required
-                >
+                    <span class=input-group-text">
+                        {{ display_language.get("SNAKE_ACCESS-PIN-pin", "PIN") }}
+                    </span>
+
+                    <input
+                        type="password"
+                        id="pin"
+                        name="pin"
+                        class="form-control"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        minlength="{{ pin_length }}"
+                        maxlength="{{ pin_length }}"
+                        pattern="[0-9]*"
+                        autofocus
+                        required>
+                    <button
+                        type="button"
+                        class="btn btn-dark"
+                        data-toggle-password
+                        data-password-input="pin">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </button>
+
+                </div>
 
             </div>
 
             <button
                 class="btn btn-dark w-100"
-                type="submit"
-            >
+                type="submit">
                 {{ display_language.get("SNAKE_ACCESS-PIN-verify", "Verify") }}
             </button>
 

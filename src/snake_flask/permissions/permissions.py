@@ -5,13 +5,14 @@
 # 
 # Author      : Pascal Malouin (https://github.com/fantomH)
 # Created     : 2026-06-17 20:38:00 UTC
-# Updated     : 2026-07-10 13:40:54 UTC
+# Updated     : 2026-07-14 14:56:07 UTC
 # Description : SnakePermissions permissions.
 # +---------------------------------------------------------------------------+
 
 from __future__ import annotations
 
 import sqlite3
+from collections.abc import Iterable
 from dataclasses import dataclass
 
 from flask import g
@@ -21,8 +22,6 @@ from flask import url_for
 from snake_flask.database import get_db
 from snake_flask.linguae import get_language_dictionary
 from snake_flask.tables import Table
-
-from .db import execute
 
 @dataclass
 class Permission:
@@ -99,6 +98,144 @@ class Permission:
 
         conn.commit()
 
+    # +-----------------------------------------------------------------------+
+    # [+] FETCHALL
+    # +-----------------------------------------------------------------------+
+    @classmethod
+    def fetch_all(cls) -> list[Permission]:
+        db = get_db("permissions")
+
+        rows = db.execute(
+            """
+            SELECT
+                id,
+                name,
+                description
+            FROM permissions
+            ORDER BY name COLLATE NOCASE
+            """
+        ).fetchall()
+
+        return [
+            cls(
+                id=row["id"],
+                name=row["name"],
+                description=row["description"],
+            )
+            for row in rows
+        ]
+
+    # +---------------------------------------------------------------------------+
+    # [+] USER -> FETCH USER DIRECT PERMISSIONS
+    # +---------------------------------------------------------------------------+
+    @classmethod
+    def fetch_assigned_to_user(
+        cls,
+        user_id: int,
+    ) -> list[Permission]:
+        db = get_db("permissions")
+
+        rows = db.execute(
+            """
+            SELECT
+                permissions.id,
+                permissions.name,
+                permissions.description
+            FROM permissions
+
+            INNER JOIN user_direct_permissions
+                ON user_direct_permissions.permission_id =
+                   permissions.id
+
+            WHERE user_direct_permissions.user_id = ?
+
+            ORDER BY permissions.name COLLATE NOCASE
+            """,
+            (user_id,),
+        ).fetchall()
+
+        return [
+            cls(
+                id=row["id"],
+                name=row["name"],
+                description=row["description"],
+            )
+            for row in rows
+        ]
+
+    # +---------------------------------------------------------------------------+
+    # [+] USER -> REPLACE USER DIRECT PERMISSIONS
+    # +---------------------------------------------------------------------------+
+    @classmethod
+    def replace_for_user(
+        cls,
+        user_id: int,
+        permission_ids: Iterable[int],
+    ) -> None:
+        db = get_db("permissions")
+
+        permission_ids = sorted(
+            {
+                int(permission_id)
+                for permission_id in permission_ids
+            }
+        )
+
+        valid_ids = cls._filter_valid_ids(
+            permission_ids
+        )
+
+        db.execute(
+            """
+            DELETE FROM user_direct_permissions
+            WHERE user_id = ?
+            """,
+            (user_id,),
+        )
+
+        db.executemany(
+            """
+            INSERT INTO user_direct_permissions (
+                user_id,
+                permission_id
+            )
+            VALUES (?, ?)
+            """,
+            [
+                (user_id, permission_id)
+                for permission_id in valid_ids
+            ],
+        )
+
+    @classmethod
+    def _filter_valid_ids(
+        cls,
+        permission_ids: list[int],
+    ) -> list[int]:
+        if not permission_ids:
+            return []
+
+        placeholders = ", ".join(
+            "?"
+            for _ in permission_ids
+        )
+
+        db = get_db("permissions")
+
+        rows = db.execute(
+            f"""
+            SELECT id
+            FROM permissions
+            WHERE id IN ({placeholders})
+            """,
+            permission_ids,
+        ).fetchall()
+
+        return [
+            row["id"]
+            for row in rows
+        ]
+
 def generate_permissions_table():
 
     # +-----------------------------------------------------------------------+
@@ -141,313 +278,293 @@ def generate_permissions_table():
         default_order_by="name ASC",
     )
 
-def create_user_group(
-    name: str,
-    description: str = "",
-) -> None:
-    """
-    Create a user group if it does not already exist.
-    """
+# def create_permission_group(
+    # name: str,
+    # description: str = "",
+# ) -> None:
+    # """
+    # Create a permission group if it does not already exist.
+    # """
 
-    execute(
-        """
-        INSERT OR IGNORE INTO user_groups (name, description)
-        VALUES (?, ?)
-        """,
-        (
-            name,
-            description,
-        ),
-    )
-
-
-def create_permission_group(
-    name: str,
-    description: str = "",
-) -> None:
-    """
-    Create a permission group if it does not already exist.
-    """
-
-    execute(
-        """
-        INSERT OR IGNORE INTO permission_groups (name, description)
-        VALUES (?, ?)
-        """,
-        (
-            name,
-            description,
-        ),
-    )
+    # execute(
+        # """
+        # INSERT OR IGNORE INTO permission_groups (name, description)
+        # VALUES (?, ?)
+        # """,
+        # (
+            # name,
+            # description,
+        # ),
+    # )
 
 
-def get_permission_id(permission_name: str) -> int:
-    """
-    Return the ID of a permission.
-    """
+# def get_permission_id(permission_name: str) -> int:
+    # """
+    # Return the ID of a permission.
+    # """
 
-    db = get_db()
+    # db = get_db()
 
-    row = db.execute(
-        """
-        SELECT id
-        FROM permissions
-        WHERE name = ?
-        """,
-        (permission_name,),
-    ).fetchone()
+    # row = db.execute(
+        # """
+        # SELECT id
+        # FROM permissions
+        # WHERE name = ?
+        # """,
+        # (permission_name,),
+    # ).fetchone()
 
-    if row is None:
-        raise ValueError(f"Permission does not exist: {permission_name}")
+    # if row is None:
+        # raise ValueError(f"Permission does not exist: {permission_name}")
 
-    return int(row["id"])
-
-
-def get_user_group_id(group_name: str) -> int:
-    """
-    Return the ID of a user group.
-    """
-
-    db = get_db()
-
-    row = db.execute(
-        """
-        SELECT id
-        FROM user_groups
-        WHERE name = ?
-        """,
-        (group_name,),
-    ).fetchone()
-
-    if row is None:
-        raise ValueError(f"User group does not exist: {group_name}")
-
-    return int(row["id"])
+    # return int(row["id"])
 
 
-def get_permission_group_id(permission_group_name: str) -> int:
-    """
-    Return the ID of a permission group.
-    """
+# def get_user_group_id(group_name: str) -> int:
+    # """
+    # Return the ID of a user group.
+    # """
 
-    db = get_db()
+    # db = get_db()
 
-    row = db.execute(
-        """
-        SELECT id
-        FROM permission_groups
-        WHERE name = ?
-        """,
-        (permission_group_name,),
-    ).fetchone()
+    # row = db.execute(
+        # """
+        # SELECT id
+        # FROM user_groups
+        # WHERE name = ?
+        # """,
+        # (group_name,),
+    # ).fetchone()
 
-    if row is None:
-        raise ValueError(
-            f"Permission group does not exist: {permission_group_name}"
-        )
+    # if row is None:
+        # raise ValueError(f"User group does not exist: {group_name}")
 
-    return int(row["id"])
+    # return int(row["id"])
 
 
-def add_permission_to_user(
-    user_id: int,
-    permission_name: str,
-) -> None:
-    """
-    Add a direct permission to a user.
+# def get_permission_group_id(permission_group_name: str) -> int:
+    # """
+    # Return the ID of a permission group.
+    # """
 
-    This permission stays attached to the user even if groups are removed.
-    """
+    # db = get_db()
 
-    create_permission(permission_name)
-    permission_id = get_permission_id(permission_name)
+    # row = db.execute(
+        # """
+        # SELECT id
+        # FROM permission_groups
+        # WHERE name = ?
+        # """,
+        # (permission_group_name,),
+    # ).fetchone()
 
-    execute(
-        """
-        INSERT OR IGNORE INTO user_permissions (user_id, permission_id)
-        VALUES (?, ?)
-        """,
-        (
-            user_id,
-            permission_id,
-        ),
-    )
+    # if row is None:
+        # raise ValueError(
+            # f"Permission group does not exist: {permission_group_name}"
+        # )
 
-
-def remove_permission_from_user(
-    user_id: int,
-    permission_name: str,
-) -> None:
-    """
-    Remove a direct permission from a user.
-    """
-
-    permission_id = get_permission_id(permission_name)
-
-    execute(
-        """
-        DELETE FROM user_permissions
-        WHERE user_id = ?
-        AND permission_id = ?
-        """,
-        (
-            user_id,
-            permission_id,
-        ),
-    )
+    # return int(row["id"])
 
 
-def add_user_to_group(
-    user_id: int,
-    group_name: str,
-) -> None:
-    """
-    Add a user to a user group.
-    """
+# def add_permission_to_user(
+    # user_id: int,
+    # permission_name: str,
+# ) -> None:
+    # """
+    # Add a direct permission to a user.
 
-    create_user_group(group_name)
-    group_id = get_user_group_id(group_name)
+    # This permission stays attached to the user even if groups are removed.
+    # """
 
-    execute(
-        """
-        INSERT OR IGNORE INTO user_group_members (user_id, group_id)
-        VALUES (?, ?)
-        """,
-        (
-            user_id,
-            group_id,
-        ),
-    )
+    # create_permission(permission_name)
+    # permission_id = get_permission_id(permission_name)
 
-
-def remove_user_from_group(
-    user_id: int,
-    group_name: str,
-) -> None:
-    """
-    Remove a user from a user group.
-
-    Direct user permissions are not affected.
-    """
-
-    group_id = get_user_group_id(group_name)
-
-    execute(
-        """
-        DELETE FROM user_group_members
-        WHERE user_id = ?
-        AND group_id = ?
-        """,
-        (
-            user_id,
-            group_id,
-        ),
-    )
+    # execute(
+        # """
+        # INSERT OR IGNORE INTO user_permissions (user_id, permission_id)
+        # VALUES (?, ?)
+        # """,
+        # (
+            # user_id,
+            # permission_id,
+        # ),
+    # )
 
 
-def add_permission_to_user_group(
-    group_name: str,
-    permission_name: str,
-) -> None:
-    """
-    Add a permission to a user group.
-    """
+# def remove_permission_from_user(
+    # user_id: int,
+    # permission_name: str,
+# ) -> None:
+    # """
+    # Remove a direct permission from a user.
+    # """
 
-    create_user_group(group_name)
-    create_permission(permission_name)
+    # permission_id = get_permission_id(permission_name)
 
-    group_id = get_user_group_id(group_name)
-    permission_id = get_permission_id(permission_name)
-
-    execute(
-        """
-        INSERT OR IGNORE INTO user_group_permissions
-        (group_id, permission_id)
-        VALUES (?, ?)
-        """,
-        (
-            group_id,
-            permission_id,
-        ),
-    )
+    # execute(
+        # """
+        # DELETE FROM user_permissions
+        # WHERE user_id = ?
+        # AND permission_id = ?
+        # """,
+        # (
+            # user_id,
+            # permission_id,
+        # ),
+    # )
 
 
-def add_permission_to_permission_group(
-    permission_group_name: str,
-    permission_name: str,
-) -> None:
-    """
-    Add a permission to a permission group.
-    """
+# def add_user_to_group(
+    # user_id: int,
+    # group_name: str,
+# ) -> None:
+    # """
+    # Add a user to a user group.
+    # """
 
-    create_permission_group(permission_group_name)
-    create_permission(permission_name)
+    # create_user_group(group_name)
+    # group_id = get_user_group_id(group_name)
 
-    permission_group_id = get_permission_group_id(permission_group_name)
-    permission_id = get_permission_id(permission_name)
-
-    execute(
-        """
-        INSERT OR IGNORE INTO permission_group_permissions
-        (permission_group_id, permission_id)
-        VALUES (?, ?)
-        """,
-        (
-            permission_group_id,
-            permission_id,
-        ),
-    )
+    # execute(
+        # """
+        # INSERT OR IGNORE INTO user_group_members (user_id, group_id)
+        # VALUES (?, ?)
+        # """,
+        # (
+            # user_id,
+            # group_id,
+        # ),
+    # )
 
 
-def add_permission_group_to_user(
-    user_id: int,
-    permission_group_name: str,
-) -> None:
-    """
-    Add a permission group directly to a user.
-    """
+# def remove_user_from_group(
+    # user_id: int,
+    # group_name: str,
+# ) -> None:
+    # """
+    # Remove a user from a user group.
 
-    create_permission_group(permission_group_name)
-    permission_group_id = get_permission_group_id(permission_group_name)
+    # Direct user permissions are not affected.
+    # """
 
-    execute(
-        """
-        INSERT OR IGNORE INTO user_permission_groups
-        (user_id, permission_group_id)
-        VALUES (?, ?)
-        """,
-        (
-            user_id,
-            permission_group_id,
-        ),
-    )
+    # group_id = get_user_group_id(group_name)
+
+    # execute(
+        # """
+        # DELETE FROM user_group_members
+        # WHERE user_id = ?
+        # AND group_id = ?
+        # """,
+        # (
+            # user_id,
+            # group_id,
+        # ),
+    # )
 
 
-def add_permission_group_to_user_group(
-    group_name: str,
-    permission_group_name: str,
-) -> None:
-    """
-    Add a permission group to a user group.
-    """
+# def add_permission_to_user_group(
+    # group_name: str,
+    # permission_name: str,
+# ) -> None:
+    # """
+    # Add a permission to a user group.
+    # """
 
-    create_user_group(group_name)
-    create_permission_group(permission_group_name)
+    # create_user_group(group_name)
+    # create_permission(permission_name)
 
-    group_id = get_user_group_id(group_name)
-    permission_group_id = get_permission_group_id(permission_group_name)
+    # group_id = get_user_group_id(group_name)
+    # permission_id = get_permission_id(permission_name)
 
-    execute(
-        """
-        INSERT OR IGNORE INTO user_group_permission_groups
-        (group_id, permission_group_id)
-        VALUES (?, ?)
-        """,
-        (
-            group_id,
-            permission_group_id,
-        ),
-    )
+    # execute(
+        # """
+        # INSERT OR IGNORE INTO user_group_permissions
+        # (group_id, permission_id)
+        # VALUES (?, ?)
+        # """,
+        # (
+            # group_id,
+            # permission_id,
+        # ),
+    # )
+
+
+# def add_permission_to_permission_group(
+    # permission_group_name: str,
+    # permission_name: str,
+# ) -> None:
+    # """
+    # Add a permission to a permission group.
+    # """
+
+    # create_permission_group(permission_group_name)
+    # create_permission(permission_name)
+
+    # permission_group_id = get_permission_group_id(permission_group_name)
+    # permission_id = get_permission_id(permission_name)
+
+    # execute(
+        # """
+        # INSERT OR IGNORE INTO permission_group_permissions
+        # (permission_group_id, permission_id)
+        # VALUES (?, ?)
+        # """,
+        # (
+            # permission_group_id,
+            # permission_id,
+        # ),
+    # )
+
+
+# def add_permission_group_to_user(
+    # user_id: int,
+    # permission_group_name: str,
+# ) -> None:
+    # """
+    # Add a permission group directly to a user.
+    # """
+
+    # create_permission_group(permission_group_name)
+    # permission_group_id = get_permission_group_id(permission_group_name)
+
+    # execute(
+        # """
+        # INSERT OR IGNORE INTO user_permission_groups
+        # (user_id, permission_group_id)
+        # VALUES (?, ?)
+        # """,
+        # (
+            # user_id,
+            # permission_group_id,
+        # ),
+    # )
+
+
+# def add_permission_group_to_user_group(
+    # group_name: str,
+    # permission_group_name: str,
+# ) -> None:
+    # """
+    # Add a permission group to a user group.
+    # """
+
+    # create_user_group(group_name)
+    # create_permission_group(permission_group_name)
+
+    # group_id = get_user_group_id(group_name)
+    # permission_group_id = get_permission_group_id(permission_group_name)
+
+    # execute(
+        # """
+        # INSERT OR IGNORE INTO user_group_permission_groups
+        # (group_id, permission_group_id)
+        # VALUES (?, ?)
+        # """,
+        # (
+            # group_id,
+            # permission_group_id,
+        # ),
+    # )
 
 
 def get_effective_permissions(user_id: int) -> set[str]:

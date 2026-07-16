@@ -2,12 +2,12 @@
 +-----------------------------------------------------------------------------+ 
 [+] INFO
 +-----------------------------------------------------------------------------+
- [Snake-Flask/src/snake_flask/permissions/templates/snake_permissions/permissions.html]
+ [Snake-Flask/src/snake_flask/permissions/templates/snake_permissions/permission_sets.html]
 
  Author      : Pascal Malouin (https://github.com/fantomH)
- Created     : 2026-07-13 01:07:37 UTC
- Updated     : 2026-07-13 01:07:37 UTC
- Description : Permissions template.
+ Created     : 2026-07-14 15:32:18 UTC
+ Updated     : 2026-07-14 15:32:22 UTC
+ Description : Permission sets template.
 +-----------------------------------------------------------------------------+
 -->
 
@@ -18,7 +18,7 @@
     <div class="sc-container-fluid">
 
         <form method="POST" action="">
-            <h1>Permissions</h1>
+            <h1>Permission Sets</h1>
 
             <div class="form-group sc-box sc-box-light">
  
@@ -26,7 +26,7 @@
                     <input type="text"
                           name="name"
                           class="form-control"
-                          placeholder="manage_users.create"
+                          placeholder="user-management"
                           required>
 
                     <input type="text"
@@ -36,14 +36,14 @@
 
                     <button type="submit"
                             class="btn btn-dark">
-                               Add Permission
+                               Add Permission Set
                     </button>
                 </div>
           </div>
         </form>
 
         <div class="sc-box sc-box-dark">
-            {{ permissions_table.load() | safe }}
+            {{ permission_sets_table.load() | safe }}
         </div>
 
     </div>

@@ -1,10 +1,12 @@
-# +-------------------------------------------------------------------- INFO -+
-# | [Snake-Flask/src/snake_flask/database/extension.py]                       |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-07-01 16:50:53 UTC                                     |
-# | Updated     : 2026-07-01 16:50:53 UTC                                     |
-# | Description : Snake-Database extension.                                   |
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/database/extension.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-07-01 16:50:53 UTC
+# Updated     : 2026-07-13 11:04:26 UTC
+# Description : SnakeDatabase extension.
 # +---------------------------------------------------------------------------+
 
 from __future__ import annotations
@@ -15,7 +17,6 @@ from flask import Flask, current_app, g
 
 from .backends import DatabaseBackend
 
-
 class SnakeDatabase:
 
     def __init__(
@@ -23,13 +24,22 @@ class SnakeDatabase:
         app: Flask | None = None,
         databases: dict[str, DatabaseBackend] | None = None,
     ):
-        self.databases = databases or {}
+        self.databases = {} if databases is None else databases
 
         if app is not None:
             self.init_app(app)
 
     def init_app(self, app: Flask) -> None:
+        if "snake_database" in app.extensions:
+            return
         app.extensions["snake_database"] = self
+
+        from .cli import init_snake_db_command
+        from .cli import migrate_command
+
+        app.cli.add_command(init_snake_db_command)
+        app.cli.add_command(migrate_command)
+
         app.teardown_appcontext(close_db)
 
     def register(
@@ -44,7 +54,6 @@ class SnakeDatabase:
             raise RuntimeError(f"Database is not registered: {name}")
 
         return self.databases[name]
-
 
 def get_database_extension() -> SnakeDatabase:
     if "snake_database" not in current_app.extensions:

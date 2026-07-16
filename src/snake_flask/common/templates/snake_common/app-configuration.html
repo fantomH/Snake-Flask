@@ -1,0 +1,23 @@
+<!--
++-----------------------------------------------------------------------------+ 
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/src/snake_flask/common/templates/snake_common/app-configuration.html]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-07-15 11:40:51 UTC
+ Updated     : 2026-07-15 11:40:51 UTC
+ Description : SnakeAccess configuration template.
++-----------------------------------------------------------------------------+
+-->
+
+{% extends _snake_common_internal_base_template %}
+
+{% block snake_content %}
+
+    {% for k, v in cfg.items() %}
+
+        <p>{{k}}: {{v}}</p>
+    {% endfor %}
+
+{% endblock %}

@@ -1,11 +1,13 @@
-# [ INFO ] ------------------------------------------------------------------ +
-# | [Snake-Flask/src/snake_flask/access/blueprints/mfa.py]
-# |
-# | Author      : Pascal Malouin (https://github.com/fantomH)
-# | Created     : 2026-07-06 12:14:49 UTC
-# | Updated     : 2026-07-08 11:21:46 UTC
-# | Description : MFA blueprints.
-# + ------------------------------------------------------------------------- +
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/access/blueprints/mfa.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-07-06 12:14:49 UTC
+# Updated     : 2026-07-15 16:32:22 UTC
+# Description : MFA Blueprint.
+# +---------------------------------------------------------------------------+
 
 import base64
 from io import BytesIO
@@ -23,7 +25,7 @@ from flask import url_for
 
 from snake_flask.linguae import get_language_dictionary
 
-from app.models.user import User
+from ..user import User
 
 bp = Blueprint(
     "mfa",

@@ -1,10 +1,12 @@
-# +-------------------------------------------------------------------- INFO -+
-# | [Snake-Flask/src/snake_flask/database/cli.py]                             |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-07-01 17:01:02 UTC                                     |
-# | Updated     : 2026-07-01 17:01:02 UTC                                     |
-# | Description : Snake-Database cli.                                         |
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/database/cli.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-07-01 17:01:02 UTC
+# Updated     : 2026-07-13 10:52:40 UTC
+# Description : SnakeDatabase CLI.
 # +---------------------------------------------------------------------------+
 
 from __future__ import annotations
@@ -17,6 +19,33 @@ from flask.cli import with_appcontext
 
 from .migrations import apply_migration, create_migration_table
 
+@click.command("init-snake-db")
+@with_appcontext
+def init_snake_db_command() -> None:
+    initialized = 0
+
+    for extension_name, extension in current_app.extensions.items():
+        initializer = getattr(extension, "init_db", None)
+
+        if not callable(initializer):
+            continue
+
+        click.echo(f"Initializing {extension_name}...")
+
+        try:
+            initializer()
+        except Exception as error:
+            raise click.ClickException(
+                f"Could not initialize {extension_name}: {error}"
+            ) from error
+
+        initialized += 1
+
+    if initialized == 0:
+        click.echo("No database-enabled Snake extensions are registered.")
+        return
+
+    click.echo("Snake extension databases initialized.")
 
 @click.command("db-init-migrations")
 @click.option("--database", default="default")
@@ -25,7 +54,6 @@ def init_migrations_command(database: str) -> None:
     create_migration_table(database)
 
     click.echo(f"Migration table initialized: {database}")
-
 
 @click.command("db-migrate")
 @click.option("--database", default="default")

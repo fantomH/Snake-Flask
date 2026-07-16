@@ -1,0 +1,172 @@
+<!--
++-----------------------------------------------------------------------------+ 
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/src/snake_flask/access/templates/snake_access/user-account.html]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-06-16 13:42:03 UTC
+ Updated     : 2026-07-14 20:36:21 UTC
+ Description : User Account template.
++-----------------------------------------------------------------------------+
+-->
+
+{% extends _snake_access_internal_base_template %}
+
+{% block snake_access_content %}
+
+    <div class="sc-container-fluid">
+
+        <form method="POST" action="">
+
+            <h1>
+                {{ display_language.get("USER-ACCOUNT-h1", "User Account ") }} ({{ user_account.username }})
+            </h1>
+
+            <div class="sc-box sc-box-light">
+
+                <div class="form-group mb-3">
+                    <div class="form-check form-switch">
+                        <input 
+                            class="form-check-input"
+                            type="checkbox"
+                            id="is_active"
+                            name="is_active"
+                            {% if user_account.is_active == 1 %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">
+                            {{ display_language.get("USERACCOUNT-is-active", "active") }}
+                        </label>
+                    </div>
+
+                    <div class="form-check form-switch">
+                        <input 
+                            class="form-check-input"
+                            type="checkbox"
+                            id="mfa_enabled"
+                            name="mfa_enabled"
+                            {% if user_account.mfa_enabled == 1 %}checked{% endif %}>
+                        <label class="form-check-label" for="mfa_enabled">
+                            {{ display_language.get("USERACCOUNT-mfa_enabled", "MFA enabled") }}
+                        </label>
+                    </div>
+
+                    <div class="form-check form-switch">
+                        <input 
+                            class="form-check-input"
+                            type="checkbox"
+                            id="pin_enabled"
+                            name="pin_enabled"
+                            {% if user_account.pin_enabled == 1 %}checked{% endif %}>
+                        <label class="form-check-label" for="pin_enabled">
+                            {{ display_language.get("USERACCOUNT-pin_enabled", "PIN enabled") }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sc-box sc-box-light">
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        {{ display_language.get("USER-ACCOUNT-username", "Username") }}
+                    </span>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-control"
+                        value="{{ user_account.username }}"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        {{ display_language.get("USER-ACCOUNT-firstname_label", "First Name") }}
+                    </span>
+                    <input
+                        type="text"
+                        id="firstname"
+                        name="firstname"
+                        class="form-control"
+                        value="{{ user_account.firstname }}"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        {{ display_language.get("USER-ACCOUNT-lastname_label", "Last Name") }}
+                    </span>
+                    <input
+                        type="text"
+                        id="lastname"
+                        name="lastname"
+                        class="form-control"
+                        value="{{ user_account.lastname }}"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        {{ display_language.get("USER-ACCOUNT-email_label", "Email") }}
+                    </span>
+                    <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        class="form-control"
+                        value="{{ user_account.email }}"/>
+                </div>
+
+            </div>
+
+            <div class="sc-box sc-box-light">
+
+                <h4>
+                    {{ display_language.get("USER-ACCOUNT-change_password", "Change Password") }}
+                </h4>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        {{ display_language.get("USER-ACCOUNT-new_password_label", "New password") }}
+                    </span>
+                    <input
+                        type="password"
+                        id="password1"
+                        name="password1"
+                        class="form-control"
+                        placeholder="{{ display_language.get("USER-ACCOUNT-new_password_placeholder", "Enter new password") }}"/>
+                    <button
+                        type="button"
+                        class="btn btn-dark"
+                        data-toggle-password
+                        data-password-input="password1">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </button>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        {{ display_language.get("USER-ACCOUNT-confirm_password_label", "Confirmation of new password") }}
+                    </span>
+                    <input
+                        type="password"
+                        id="password2"
+                        name="password2"
+                        class="form-control"
+                        placeholder="{{ display_language.get("USER-ACCOUNT-confirm_password_placeholder", "Confirm new password") }}"/>
+                    <button
+                        type="button"
+                        class="btn btn-dark"
+                        data-toggle-password
+                        data-password-input="password2">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </button>
+                </div>
+            </div>
+
+            <button class="btn btn-dark w-100" type="submit">
+                {{ display_language.get("LINGUAE-save", "save").capitalize() }}
+            </button>
+
+        </form>
+
+    </div>
+
+{% endblock %}

@@ -5,29 +5,28 @@
 # 
 # Author      : Pascal Malouin (https://github.com/fantomH)
 # Created     : 2026-06-17 20:36:16 UTC
-# Updated     : 2026-07-08 21:03:57 UTC
+# Updated     : 2026-07-14 17:29:58 UTC
 # Description : SnakePermissions.
 # +---------------------------------------------------------------------------+
 
 from __future__ import annotations
 
 from pathlib import Path
-import typing
 
 from flask import Flask
 
 from snake_flask.common import ensure_snake_common
 from snake_flask.linguae import ensure_linguae
+from snake_flask.database import close_db
 
-from . import db
+from .db import init_db as initialize_permissions_db
 
 class SnakePermissions:
     """
-    Flask extension used to manage users and groups permissions.
+    Flask extension used to manage users and roles permissions.
     """
 
     def __init__(self, app: Flask | None = None) -> None:
-        self.app: Flask | None = None
 
         if app is not None:
             self.init_app(app)
@@ -45,7 +44,6 @@ class SnakePermissions:
         # +-------------------------------------------------------------------+
         # [+] EXTENSIONS
         # +-------------------------------------------------------------------+
-
         linguae = ensure_linguae(app)
         linguae.register_package("snake_flask.permissions.dictionaries")
         ensure_snake_common(app)
@@ -53,7 +51,6 @@ class SnakePermissions:
         # +-------------------------------------------------------------------+
         # [+] CONFIGURATION
         # +-------------------------------------------------------------------+
-
         _default_configuration = {
             "SNAKE_PERMISSIONS_DATABASE": str(Path(app.instance_path) / "permissions.sqlite"),
             "SNAKE_PERMISSIONS_URL_PREFIX": "/permissions",
@@ -63,12 +60,11 @@ class SnakePermissions:
         for key, value in _default_configuration.items():
             app.config.setdefault(key, value)
 
-        app.teardown_appcontext(db.close_db)
+        app.teardown_appcontext(close_db)
 
         # +-------------------------------------------------------------------+
         # [+] BLUEPRINTS + TEMPLATES
         # +-------------------------------------------------------------------+
-
         @app.context_processor
         def inject_base_template():
             _base_template = app.config["SNAKE_PERMISSIONS_BASE_TEMPLATE"]
@@ -83,11 +79,22 @@ class SnakePermissions:
                 "_snake_permissions_base_template": _base_template,
             }
 
-        from .blueprints.blueprint import bp
-        app.register_blueprint(
-            bp,
-            url_prefix=app.config["SNAKE_PERMISSIONS_URL_PREFIX"]
-        )
+        _url_prefix = app.config["SNAKE_PERMISSIONS_URL_PREFIX"]
 
-        with app.app_context():
-            db.init_db()
+        from .blueprints.permissions import bp
+        app.register_blueprint(bp, url_prefix=_url_prefix)
+
+        from .blueprints.roles import bp
+        app.register_blueprint(bp, url_prefix=_url_prefix)
+
+        from .blueprints.permission_sets import bp
+        app.register_blueprint(bp, url_prefix=_url_prefix)
+
+        from .blueprints.users import bp
+        app.register_blueprint(bp, url_prefix=_url_prefix)
+
+    # +-----------------------------------------------------------------------+
+    # [+] INIT DATABASE
+    # +-----------------------------------------------------------------------+
+    def init_db(self) -> None:
+        initialize_permissions_db()

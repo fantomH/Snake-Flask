@@ -1,0 +1,131 @@
+<!--
++-----------------------------------------------------------------------------+ 
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/src/snake_flask/access/templates/snake_access/sign-up.html]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-06-16 13:34:11 UTC
+ Updated     : 2026-07-14 20:55:31 UTC
+ Description : Sign up template.
++-----------------------------------------------------------------------------+
+-->
+
+{% extends _snake_access_internal_base_template %}
+
+{% block snake_access_content %}
+
+  <div class="sc-container-fluid">
+    <form method="POST" action="">
+
+      <h1>{{ display_language.get("SIGNUP-h1", "Sign Up") }}</h1>
+        <div class="sc-box sc-box-light">
+          <p>{{ display_language.get("SIGNUP-message", "") }}</p>
+        </div>
+
+      <div class="sc-box sc-box-light">
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                {{ display_language.get("SIGNUP-firstname", "First Name") }}
+            </span>
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              class="form-control"
+              value="{{ form_data.firstname }}"
+              placeholder="{{ display_language.get("SIGNUP-firstname_placeholder", "Enter your first name") }}"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                {{ display_language.get("SIGNUP-lastname", "Last Name") }}
+            </span>
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              class="form-control"
+              value="{{ form_data.lastname }}"
+              placeholder="{{ display_language.get("SIGNUP-lastname_placeholder", "Enter your last name") }}"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                {{ display_language.get("SIGNUP-user", "Username") }}
+            </span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              value="{{ form_data.username }}"
+              placeholder="{{ display_language.get("SIGNUP-user_placeholder", "Choose a username") }}"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+              {{ display_language.get("SIGNUP-email", "Email") }}
+            </span>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                class="form-control"
+                value="{{ form_data.email }}"
+                placeholder="{{ display_language.get("SIGNUP-email_placeholder", "Enter your email") }}"/>
+            </div>
+
+      </div>
+
+      <div class="sc-box sc-box-light">
+          <div class="input-group mb-3">
+          <span class="input-group-text">
+              {{ display_language.get("SIGNUP-password1", "Password") }}
+          </span>
+          <input
+            type="password"
+            id="password1"
+            name="password1"
+            class="form-control"
+            placeholder="{{ display_language.get("SIGNUP-password1_placeholder", "Choose a password") }}"/>
+        <button
+            type="button"
+            class="btn btn-dark"
+            data-toggle-password
+            data-password-input="password1">
+            <span class="material-symbols-outlined">visibility</span>
+        </button>
+        </div>
+
+
+        <div class="input-group mb-3">
+        <span class="input-group-text">
+            {{ display_language.get("SIGNUP-password2", "Password Confirmation") }}
+        </span>
+          <input
+            type="password"
+            id="password2"
+            name="password2"
+            class="form-control"
+            placeholder="{{ display_language.get("SIGNUP-password2_placeholder", "Confirm your password") }}"/>
+        <button
+            type="button"
+            class="btn btn-dark"
+            data-toggle-password
+            data-password-input="password2">
+            <span class="material-symbols-outlined">visibility</span>
+        </button>
+        </div>
+
+      </div>
+      <button class="btn btn-dark w-100" type="submit">
+          {{ display_language.get("SIGNUP-submit_button", "Submit") }}
+      </button>
+      </div>
+
+    </form>
+  </div>
+
+{% endblock %}

@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
 /*
  * +--------------------------------------------------------------------------+
  * [+] AJAX PAGINATION                                                        |
@@ -390,7 +389,7 @@ function setupInactivityLogout() {
         clearTimeout(inactivityTimer);
 
         inactivityTimer = setTimeout(function () {
-            window.location.href = "/logout";
+            window.location.href = "authentication/logout";
         }, 60 * 60 * 1000); // 60 minutes
 
     }

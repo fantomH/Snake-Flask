@@ -1,12 +1,12 @@
 # +---------------------------------------------------------------------------+
 # [+] INFO
 # +---------------------------------------------------------------------------+
-# [Snake-Flask/src/snake_flask/permissions/blueprint.py]
+# [Snake-Flask/src/snake_flask/permissions/permissions.py]
 # 
 # Author      : Pascal Malouin (https://github.com/fantomH)
 # Created     : 2026-06-18 19:51:47 UTC
 # Updated     : 2026-07-09 15:15:43 UTC
-# Description : SnakePermissions routes.
+# Description : SnakePermissions permissions routes.
 # +---------------------------------------------------------------------------+
 
 from __future__ import annotations

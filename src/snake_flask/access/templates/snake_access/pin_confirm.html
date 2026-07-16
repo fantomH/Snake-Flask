@@ -21,19 +21,32 @@
 
         <form method="POST">
 
-            <div class="form-group">
-                <input
-                    type="password"
-                    id="pin"
-                    name="pin"
-                    class="form-control"
-                    placeholder="{{ display_language.get("SNAKE_ACCESS-enter_your_pin", "Enter your PIN") }}"/>
+            <div class="sc-box sc-box-light">
 
-                <br />
-                <div align="right">
-                    <button class="btn btn-dark" type="submit">{{ display_language.get("SNAKE_ACCESS-confirm", "Confirm") }}</button>
+                <div class="input-group mb-3">
+
+                    <span class="input-group-text">
+                        {{ display_language.get("SNAKE_ACCESS-PIN-enter_pin", "Enter PIN") }}
+                    </span>
+                    <input
+                        type="password"
+                        id="pin"
+                        name="pin"
+                        class="form-control"
+                        autofocus>
+                    
+                    <button
+                        type="button"
+                        class="btn btn-dark"
+                        data-toggle-password
+                        data-password-input="pin">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </button>
+
                 </div>
             </div>
+
+            <button class="btn btn-dark w-100" type="submit">{{ display_language.get("SNAKE_ACCESS-confirm", "Confirm") }}</button>
 
         </form>
     </div>

@@ -16,13 +16,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Authentication</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ url_for('auth.login') }}">Login</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('authentication.login') }}">Login</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ url_for('auth.sign_up') }}">Sign-up</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('authentication.sign_up') }}">Sign-up</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ url_for('auth.my_account') }}">My account</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('authentication.my_account') }}">My account</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('authentication.logout') }}">Logout</a></li>
                     </ul>
                 </li>
 
@@ -36,6 +36,13 @@
 
                 <a class="nav-item nav-link" href="{{ url_for('snake_quiz.index') }}">Quiz</a>
                 <a class="nav-item nav-link" href="{{ url_for('snake_scribe.index') }}">SnakeScribe</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Permissions</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('permissions.permissions') }}">Permissions</a></li>
+                    </ul>
+                </li>
 
             </ul>
         </div>

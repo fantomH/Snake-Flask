@@ -2,16 +2,16 @@
 +-----------------------------------------------------------------------------+ 
 [+] INFO
 +-----------------------------------------------------------------------------+
- [Snake-Flask/src/snake_flask/permissions/templates/snake_permissions/base_extension.html]
+ [Snake-Flask/src/snake_flask/common/templates/snake_common/base_extension.html]
 
  Author      : Pascal Malouin (https://github.com/fantomH)
- Created     : 2026-07-09 15:10:11 UTC
- Updated     : 2026-07-09 15:10:11 UTC
- Description : SnakePermissions base template as extension.
+ Created     : 2026-07-15 11:46:07 UTC
+ Updated     : 2026-07-15 11:46:07 UTC
+ Description : SnakeCommon base extension template.
 +-----------------------------------------------------------------------------+
 -->
 
-{% extends _snake_permissions_base_template %}
+{% extends _snake_common_base_template %}
 
 {% block content %}
     
@@ -24,3 +24,4 @@
     <script src="{{ url_for('snake_common.static', filename='snake-common.js') }}"></script>
 
 {% endblock %}
+
