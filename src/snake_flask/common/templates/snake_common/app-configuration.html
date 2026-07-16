@@ -15,9 +15,11 @@
 
 {% block snake_content %}
 
-    {% for k, v in cfg.items() %}
+    <div class="sc-container-fluid">
+        {% for k, v in cfg.items() %}
 
-        <p>{{k}}: {{v}}</p>
-    {% endfor %}
+            <p>{{k}}: {{v}}</p>
+        {% endfor %}
+    </div>
 
 {% endblock %}

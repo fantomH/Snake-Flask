@@ -9,6 +9,7 @@
 # Description : SnakeAccess API.
 # +---------------------------------------------------------------------------+
 
+from .authentication_manager import login_required
 from .authentication_manager import password_required
 from .authentication_manager import pin_required
 from .extension import SnakeAccess
@@ -19,4 +20,5 @@ __all__ = [
     "SnakeAccess",
     "password_required",
     "pin_required",
+    "login_required",
 ]

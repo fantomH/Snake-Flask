@@ -1,11 +1,13 @@
 /*
-+---------------------------------------------------------------------- INFO -+
-| [Snake-Flask/src/snake_flask/common/static/snake-common.js]                 |
-|                                                                             |
-| Author      : Pascal Malouin (https://github.com/fantomH)                   |
-| Created     : 2026-07-03 11:36:26 UTC                                       |
-| Updated     : 2026-07-03 12:00:01 UTC                                       |
-| Description : Snake-Flask javascript.                                       |
++-----------------------------------------------------------------------------+
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/src/snake_flask/common/static/snake-common.js]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-07-03 11:36:26 UTC
+ Updated     : 2026-07-16 11:45:55 UTC
+ Description : snake-common.js
 +-----------------------------------------------------------------------------+
 */
 
@@ -368,46 +370,81 @@ function setupAutoDismissAlerts() {
 
 
 /*
- * +--------------------------------------------------------------------------+
- * [+] INACTIVITY LOGOUT                                                      |
- * |                                                                          |
- * | Redirect inactive users to /logout after a delay.                         |
- * +--------------------------------------------------------------------------+
- */
++-----------------------------------------------------------------------------+
+[+] INACTIVITY LOGOUT
 
-/*
- * setupInactivityLogout()
- *
- * Reset the inactivity timer whenever the user interacts with the page.
- */
+Redirect inactive users to /logout after a delay.
++-----------------------------------------------------------------------------+
+*/
+
 function setupInactivityLogout() {
 
-    let inactivityTimer;
+    const config = window.SNAKE_ACCESS || {};
+
+    const timeoutMinutes = Number(config.inactivityTimeoutMinutes);
+    const logoutUrl = config.logoutUrl;
+
+    /*
+    [*] Disabled if the timeout is missing, invalid, or less than or equal to
+        zero.
+    */
+    if (
+        !Number.isFinite(timeoutMinutes)
+        || timeoutMinutes <= 0
+        || !logoutUrl
+    ) {
+        return;
+    }
+
+    const timeoutMilliseconds = timeoutMinutes * 60 * 1000;
+
+    let inactivityTimer = null;
+    let logoutStarted = false;
+
+    function logoutInactiveUser() {
+
+        if (logoutStarted) {
+            return;
+        }
+
+        logoutStarted = true;
+
+        window.location.assign(logoutUrl);
+
+    }
 
     function resetInactivityTimer() {
 
+        if (logoutStarted) {
+            return;
+        }
+
         clearTimeout(inactivityTimer);
 
-        inactivityTimer = setTimeout(function () {
-            window.location.href = "authentication/logout";
-        }, 60 * 60 * 1000); // 60 minutes
+        inactivityTimer = setTimeout(
+            logoutInactiveUser,
+            timeoutMilliseconds,
+        );
 
     }
 
     [
         "mousemove",
         "mousedown",
-        "keypress",
+        "keydown",
         "touchstart",
         "scroll",
     ].forEach(function (event) {
-        document.addEventListener(event, resetInactivityTimer);
+        document.addEventListener(
+            event,
+            resetInactivityTimer,
+            { passive: true },
+        );
     });
 
     resetInactivityTimer();
 
 }
-
 
 /*
 +-----------------------------------------------------------------------------+
