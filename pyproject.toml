@@ -67,44 +67,11 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
-"snake_flask.common" = [
-    "README.md",
-    "static/*",
+snake_flask = [
+    "**/*.html",
+    "**/*.css",
+    "**/*.js",
+    "**/*.md",
 ]
-
-"snake_flask.database" = [
-    "README.md",
-]
-
-"snake_flask.linguae" = [
-    "README.md",
-]
-
-"snake_flask.lists" = [
-    "templates/**/*.html",
-    "static/*",
-]
-
-"snake_flask.quiz" = [
-    "README.md",
-    "templates/**/*.html",
-    "static/*",
-    "quizzes/*.md",
-]
-
-"snake_flask.tables" = [
-    "README.md",
-    "templates/**/*.html",
-    "static/*",
-]
-
-"snake_flask.utils" = [
-    "README.md",
-]
-
-"snake_flask.example" = [
-    "app/templates/**/*.html",
-]
-
 [project.scripts]
 snake-flask = "snake_flask.cli:main"
