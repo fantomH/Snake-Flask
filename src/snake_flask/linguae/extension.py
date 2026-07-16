@@ -12,6 +12,7 @@ from __future__ import annotations
 from importlib import import_module
 from types import ModuleType
 
+from flask import Flask
 from flask import current_app
 from flask import g
 

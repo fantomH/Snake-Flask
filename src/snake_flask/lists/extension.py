@@ -7,6 +7,8 @@
 # | Description : Snake-Lists extension.                                      |
 # +---------------------------------------------------------------------------+
 
+from __future__ import annotations
+
 from flask import Flask
 from flask import Blueprint
 

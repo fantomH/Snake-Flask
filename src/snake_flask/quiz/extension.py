@@ -7,10 +7,14 @@
 # | Description : SnakeQuiz extension.                                        |
 # +---------------------------------------------------------------------------+
 
+from __future__ import annotations
+
 from importlib.resources import files
 from markdown import markdown
 from pathlib import Path
 import shutil
+
+from flask import Flask
 
 from snake_flask.common import ensure_snake_common
 from snake_flask.linguae import ensure_linguae

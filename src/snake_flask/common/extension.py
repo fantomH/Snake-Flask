@@ -9,8 +9,11 @@
 # Description : SnakeCommon extions.
 # +---------------------------------------------------------------------------+
 
+from __future__ import annotations
+
 import json
 
+from flask import Flask
 from flask import current_app
 from flask import url_for
 from markupsafe import Markup

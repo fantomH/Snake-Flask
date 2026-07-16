@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from flask import Flask
+
 from snake_flask.common import ensure_snake_common
 from snake_flask.linguae import ensure_linguae
 from snake_flask.database import close_db

@@ -7,6 +7,9 @@
 # | Description : SnakeTables extension.                                      |
 # +---------------------------------------------------------------------------+
 
+from __future__ import annotations
+
+from flask import Flask
 from flask import Blueprint
 
 from snake_flask.linguae import ensure_linguae
