@@ -5,7 +5,7 @@
 # 
 # Author      : Pascal Malouin (https://github.com/fantomH)
 # Created     : 2026-07-07 10:54:31 UTC
-# Updated     : 2026-07-14 20:43:33 UTC
+# Updated     : 2026-07-16 15:53:58 UTC
 # Description : Authentication routes.
 # +---------------------------------------------------------------------------+
 
@@ -26,6 +26,7 @@ from snake_flask.linguae import get_language_dictionary
 from snake_flask.utils import display_session
 from snake_flask.utils import display_config
 from snake_flask.utils import display_debug
+from snake_vault.utils.data_validator import is_valid_password
 
 from .. user import User
 
