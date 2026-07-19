@@ -79,7 +79,7 @@ class SnakeAccess:
             _base_template = app.config["SNAKE_ACCESS_BASE_TEMPLATE"]
 
             if _base_template is None:
-                _internal_base_template = ("snake_access/base_standalone.html")
+                _internal_base_template = ("snake_common/base_standalone.html")
             else:
                 _internal_base_template = ("snake_access/base_extension.html")
 

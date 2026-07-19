@@ -11,7 +11,7 @@
 
 {% extends _snake_access_internal_base_template %}
 
-{% block snake_access_content %}
+{% block snake_content %}
 
     <div class="container py-5" style="max-width: 420px;">
 
@@ -37,7 +37,7 @@
                     
                     <button
                         type="button"
-                        class="btn btn-dark"
+                        class="btn btn-outline-dark"
                         data-toggle-password
                         data-password-input="pin">
                         <span class="material-symbols-outlined">visibility</span>
@@ -50,5 +50,8 @@
 
         </form>
     </div>
+
+  {{ load_common_js('password_visibility') }}
+
 
 {% endblock %}

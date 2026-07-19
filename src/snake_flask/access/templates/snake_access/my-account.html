@@ -6,93 +6,126 @@
 
  Author      : Pascal Malouin (https://github.com/fantomH)
  Created     : 2026-07-01 19:54:22 UTC
- Updated     : 2026-07-14 20:56:58 UTC
+ Updated     : 2026-07-16 19:54:00 UTC
  Description : My account template.
 +-----------------------------------------------------------------------------+
 -->
 
 {% extends _snake_access_internal_base_template %}
 
-{% block snake_access_content %}
+{% block snake_content %}
 
 <div class="sc-container-fluid">
-  <form method="POST" action="">
+    <form method="POST" action="">
 
-    <h1>{{ display_language["MYACCOUNT-h1"] }} ({{ current_user.username }})</h1>
-    <div class="form-group">
+        <h1>
+            {{ display_language["MYACCOUNT-h1"] }} ({{ current_user.username }})
+        </h1>
 
-      <div class="sc-box sc-box-light">
+        <div class="sc-box sc-box-light">
     
-        <label for="firstname">{{ display_language["MYACCOUNT-firstname_label"] }}</label>
-        <div class="input-group">
-          <input
-            type="text"
-            id="firstname"
-            name="firstname"
-            class="form-control"
-            value="{{ current_user.firstname }}"/>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    {{ display_language["MYACCOUNT-firstname_label"] }}
+                </span>
+                <input
+                    type="text"
+                    id="firstname"
+                    name="firstname"
+                    class="form-control"
+                    value="{{ current_user.firstname }}"/>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    {{ display_language["MYACCOUNT-lastname_label"] }}
+                </span>
+                <input
+                    type="text"
+                    id="lastname"
+                    name="lastname"
+                    class="form-control"
+                    value="{{ current_user.lastname }}"/>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    {{ display_language["MYACCOUNT-email_label"] }}
+                </span>
+                <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    value="{{ current_user.email }}"/>
+            </div>
         </div>
 
-        <label for="lastname">{{ display_language["MYACCOUNT-lastname_label"] }}</label>
-        <div class="input-group">
-          <input
-            type="text"
-            id="lastname"
-            name="lastname"
-            class="form-control"
-            value="{{ current_user.lastname }}"/>
+        <div class="sc-box sc-box-light">
+
+            <h4>
+                {{ display_language["MYACCOUNT-change_your_password"] }}
+            </h4>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    {{ display_language["MYACCOUNT-current_password_label"] }}
+                </span>
+                <input
+                    type="password"
+                    id="current_password"
+                    name="current_password"
+                    class="form-control"
+                    placeholder="{{ display_language["MYACCOUNT-current_password_placeholder"] }}"/>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    {{ display_language["MYACCOUNT-new_password_label"] }}
+                </span>
+                <input
+                    type="password"
+                    id="password1"
+                    name="password1"
+                    class="form-control"
+                    placeholder="{{ display_language["MYACCOUNT-new_password_placeholder"] }}"/>
+                <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    data-toggle-password
+                    data-password-input="password1">
+                    <span class="material-symbols-outlined">visibility</span>
+                </button>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    {{ display_language["MYACCOUNT-confirm_password_label"] }}
+                </span>
+                <input
+                    type="password"
+                    id="password2"
+                    name="password2"
+                    class="form-control"
+                    placeholder="{{ display_language["MYACCOUNT-confirm_password_placeholder"] }}"/>
+                <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    data-toggle-password
+                    data-password-input="password2">
+                    <span class="material-symbols-outlined">visibility</span>
+                </button>
+            </div>
         </div>
 
-        <label for="email">{{ display_language["MYACCOUNT-email_label"] }}</label>
-        <div class="input-group">
-          <input
-            type="text"
-            id="email"
-            name="email"
-            class="form-control"
-            value="{{ current_user.email }}"/>
-        </div>
-
-      </div>
-
-      <div class="sc-box sc-box-light">
-
-        <h4>{{ display_language["MYACCOUNT-change_your_password"] }}</h4>
-
-        <label for="current_password">{{ display_language["MYACCOUNT-current_password_label"] }}</label>
-        <div class="input-group">
-          <input
-            type="password"
-            id="current_password"
-            name="current_password"
-            class="form-control"
-            placeholder="{{ display_language["MYACCOUNT-current_password_placeholder"] }}"/>
-        </div>
-
-        <label for="password1">{{ display_language["MYACCOUNT-new_password_label"] }}</label>
-        <div class="input-group">
-          <input
-            type="password"
-            id="password1"
-            name="password1"
-            class="form-control"
-            placeholder="{{ display_language["MYACCOUNT-new_password_placeholder"] }}"/>
-        </div>
-
-        <label for="password2">{{ display_language["MYACCOUNT-confirm_password_label"] }}</label>
-        <div class="input-group">
-          <input
-            type="password"
-            id="password2"
-            name="password2"
-            class="form-control"
-            placeholder="{{ display_language["MYACCOUNT-confirm_password_placeholder"] }}"/>
-        </div>
-      </div>
-
-        <button class="btn btn-dark w-100" type="submit">{{ display_language["BUTTON-save"] }}</button>
+        <button
+            class="btn btn-dark w-100" 
+            type="submit">{{ display_language["BUTTON-save"] }}
+        </button>
 
     </form>
-  </div>
+</div>
+
+  {{ load_common_js('password_visibility') }}
 
 {% endblock %}

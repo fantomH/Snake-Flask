@@ -1,0 +1,68 @@
+{% extends _snake_common_internal_base_template %}
+
+{% block snake_content %}
+
+    <style>
+
+        .status-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 700px;
+        }
+
+        .status-code {
+            text-align: center;
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-title {
+            text-align: center;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .status-image {
+            display: block;
+            max-width: min(450px, 80vw);
+            max-height: 40vh;
+            width: auto;
+            height: auto;
+            margin: 0 auto 2rem auto;
+        }
+
+        .status-message {
+            text-align: center;
+            font-size: 1.15rem;
+            color: #666666;
+            line-height: 1.5;
+        }
+
+    </style>
+
+<div class="sc-container-fluid">
+
+    <div class="status-code">
+        {{ code }}
+    </div>
+
+    <div class="status-title">
+        {{ title }}
+    </div>
+
+    <img
+        class="status-image"
+        src="{{ url_for('snake_common.static', filename=image) }}"
+        alt="{{ title }}"
+    >
+
+    <div class="status-message">
+        {{ message }}
+    </div>
+
+</div>
+
+{% endblock %}

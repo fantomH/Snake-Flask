@@ -1,11 +1,13 @@
 <!--
-[ INFO ] -------------------------------------------------------------------- +
-| [Snake-Flask/.../access/templates/snake_access/base_extension.html]         |
-|                                                                             |
-| Author      : Pascal Malouin (https://github.com/fantomH)                   |
-| Created     : 2026-07-06 11:57:42 UTC                                       |
-| Updated     : 2026-07-06 11:57:42 UTC                                       |
-| Description : Base template as extension.                                   |
++-----------------------------------------------------------------------------+ 
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/src/snake_flask/access/templates/snake_access/base_extension.html]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-07-06 11:57:42 UTC
+ Updated     : 2026-07-16 18:37:04 UTC
+ Description : SnakeAccess base template as extension.
 +-----------------------------------------------------------------------------+
 -->
 
@@ -13,13 +15,13 @@
 
 {% block content %}
     
-    <link rel="stylesheet" href="{{ url_for('snake_common.static', filename='snake-common.css') }}" />
+    {{ load_common_css() }}
 
     <main>
-        {% block snake_access_content %}{% endblock %}
+        {% block snake_content %}{% endblock %}
     </main>
 
-    <script src="{{ url_for('snake_common.static', filename='snake-common.js') }}"></script>
+    {{ _load_common_js() }}
 
 {% endblock %}
 

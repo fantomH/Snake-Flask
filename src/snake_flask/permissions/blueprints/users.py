@@ -20,6 +20,7 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.database import get_db
 
 from .. permissions import Permission
@@ -51,6 +52,7 @@ def get_selected_ids(field_name: str) -> set[int]:
     "/user/<int:user_id>/",
     methods=("GET", "POST"),
 )
+@login_required
 def user(user_id: int):
     if request.method == "POST":
         db = get_db("permissions")

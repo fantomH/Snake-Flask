@@ -15,12 +15,12 @@
 
 {% block content %}
     
-    <link rel="stylesheet" href="{{ url_for('snake_common.static', filename='snake-common.css') }}" />
+    {{ load_common_css() }}
 
     <main>
         {% block snake_content %}{% endblock %}
     </main>
 
-    <script src="{{ url_for('snake_common.static', filename='snake-common.js') }}"></script>
+    {{ _load_common_js() }}
 
 {% endblock %}

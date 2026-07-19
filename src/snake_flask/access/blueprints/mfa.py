@@ -23,6 +23,7 @@ from flask import request
 from flask import session
 from flask import url_for
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.linguae import get_language_dictionary
 
 from ..user import User
@@ -35,6 +36,7 @@ bp = Blueprint(
 )
 
 @bp.route("/mfa-setup/", methods=["GET", "POST"])
+@login_required
 def mfa_setup():
 
     mfa = current_app.extensions["snake_access"].mfa
@@ -101,6 +103,7 @@ def mfa_setup():
     )
 
 @bp.route("/mfa-verification/", methods=("GET", "POST"))
+@login_required
 def mfa_verify():
     """
     Verify a user's MFA code after successful password authentication.

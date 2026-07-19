@@ -18,6 +18,7 @@ from flask import jsonify
 from flask import redirect
 from flask import url_for
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.linguae import get_language_dictionary
 
 from .. import db as _database
@@ -36,6 +37,7 @@ bp = Blueprint(
 # [+] ROLES MANAGEMENT
 # +---------------------------------------------------------------------------+
 @bp.route("/roles/", methods=["GET", "POST"])
+@login_required
 def roles():
     """
     List and create roles.
@@ -63,6 +65,7 @@ def roles():
     )
 
 @bp.route("/roles/data/")
+@login_required
 def roles_data():
 
     roles_table=generate_roles_table()
@@ -72,6 +75,7 @@ def roles_data():
     )
 
 @bp.route("/roles/update", methods=["POSTS"])
+@login_required
 def roles_update():
 
     data = request.get_json()

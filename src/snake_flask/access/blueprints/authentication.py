@@ -5,7 +5,7 @@
 # 
 # Author      : Pascal Malouin (https://github.com/fantomH)
 # Created     : 2026-07-07 10:54:31 UTC
-# Updated     : 2026-07-16 15:53:58 UTC
+# Updated     : 2026-07-16 20:12:17 UTC
 # Description : Authentication routes.
 # +---------------------------------------------------------------------------+
 
@@ -22,6 +22,7 @@ from flask import session
 from flask import current_app
 from werkzeug.security import check_password_hash
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.linguae import get_language_dictionary
 from snake_flask.utils import display_session
 from snake_flask.utils import display_config
@@ -95,6 +96,7 @@ def auth_routine():
     return redirect(next_page)
 
 @bp.route("/password-confirmation/", methods=["GET", "POST"])
+@login_required
 def password_confirm():
 
     display_language = get_language_dictionary()
@@ -319,6 +321,7 @@ def sign_up():
     )
 
 @bp.route("/my-account/", methods=["GET"])
+@login_required
 def my_account():
 
     display_language = get_language_dictionary()
@@ -329,6 +332,7 @@ def my_account():
     )
 
 @bp.route("/logout/", methods=['GET'])
+@login_required
 def logout():
     session.clear()
     return redirect(url_for("authentication.login"))

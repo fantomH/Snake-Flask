@@ -18,6 +18,7 @@ from flask import jsonify
 from flask import redirect
 from flask import url_for
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.linguae import get_language_dictionary
 
 from .. import db as _database
@@ -36,6 +37,7 @@ bp = Blueprint(
 # [+] PERMISSION SETS MANAGEMENT
 # +---------------------------------------------------------------------------+
 @bp.route("/permission-sets/", methods=["GET", "POST"])
+@login_required
 def permission_sets():
     """
     List and create permission sets.
@@ -63,6 +65,7 @@ def permission_sets():
     )
 
 @bp.route("/permission-sets/data/")
+@login_required
 def permission_sets_data():
 
     permission_sets_table=generate_permission_sets_table()
@@ -72,6 +75,7 @@ def permission_sets_data():
     )
 
 @bp.route("/permission-sets/update", methods=["POSTS"])
+@login_required
 def permission_sets_update():
 
     data = request.get_json()

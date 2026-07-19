@@ -13,7 +13,7 @@
 
 {% extends _snake_access_internal_base_template %}
 
-{% block snake_access_content %}
+{% block snake_content %}
 
   <div class="sc-container-fluid">
     <form method="POST" action="">
@@ -92,7 +92,7 @@
             placeholder="{{ display_language.get("SIGNUP-password1_placeholder", "Choose a password") }}"/>
         <button
             type="button"
-            class="btn btn-dark"
+            class="btn btn-outline-dark"
             data-toggle-password
             data-password-input="password1">
             <span class="material-symbols-outlined">visibility</span>
@@ -112,7 +112,7 @@
             placeholder="{{ display_language.get("SIGNUP-password2_placeholder", "Confirm your password") }}"/>
         <button
             type="button"
-            class="btn btn-dark"
+            class="btn btn-outline-dark"
             data-toggle-password
             data-password-input="password2">
             <span class="material-symbols-outlined">visibility</span>
@@ -127,5 +127,7 @@
 
     </form>
   </div>
+
+  {{ load_common_js('password_visibility') }}
 
 {% endblock %}

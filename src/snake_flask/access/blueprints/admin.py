@@ -5,7 +5,7 @@
 # 
 # Author      : Pascal Malouin (https://github.com/fantomH)
 # Created     : 2026-05-19 16:01:48 UTC
-# Updated     : 2026-07-14 20:19:00 UTC
+# Updated     : 2026-07-16 20:12:05 UTC
 # Description : Admin routes.
 # +---------------------------------------------------------------------------+
 
@@ -19,6 +19,7 @@ from flask import redirect
 from flask import url_for
 
 from snake_flask.linguae import get_language_dictionary
+from snake_flask.access.authentication_manager import login_required
 from snake_vault.utils.data_validator import is_valid_password
 
 from .. user import User
@@ -32,6 +33,7 @@ bp = Blueprint(
 )
 
 @bp.route("/admin/users/")
+@login_required
 def users():
 
     display_language = get_language_dictionary()
@@ -44,6 +46,7 @@ def users():
     )
 
 @bp.route("/admin/users/data/")
+@login_required
 def users_data():
 
     users_table = generate_users_table()
@@ -53,6 +56,7 @@ def users_data():
     )
 
 @bp.route("/admin/users/update/", methods=["POST"])
+@login_required
 def users_update():
 
     data = request.get_json()
@@ -69,6 +73,7 @@ def users_update():
     })
 
 @bp.route("/admin/users/account/<username>/", methods=["GET", "POST"])
+@login_required
 def user_account(username):
 
     user_account = User.fetch_by_username(username)

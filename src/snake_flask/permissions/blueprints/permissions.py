@@ -18,6 +18,7 @@ from flask import jsonify
 from flask import redirect
 from flask import url_for
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.linguae import get_language_dictionary
 
 from .. import db as _database
@@ -33,6 +34,7 @@ bp = Blueprint(
 )
 
 @bp.route("/")
+@login_required
 def index():
     """
     Display the Snake-Permissions admin dashboard.
@@ -46,6 +48,7 @@ def index():
 # [+] PERMISSIONS MANAGEMENT
 # +---------------------------------------------------------------------------+
 @bp.route("/permissions/", methods=["GET", "POST"])
+@login_required
 def permissions():
     """
     List and create permissions.
@@ -73,6 +76,7 @@ def permissions():
     )
 
 @bp.route("/permissions/data/")
+@login_required
 def permissions_data():
 
     permissions_table=generate_permissions_table()
@@ -82,6 +86,7 @@ def permissions_data():
     )
 
 @bp.route("/permissions/update", methods=["POSTS"])
+@login_required
 def permissions_update():
 
     data = request.get_json()
@@ -98,6 +103,7 @@ def permissions_update():
     })
 
 @bp.route("/user-groups/", methods=["GET", "POST"])
+@login_required
 def user_groups():
     """
     List and create user groups.
@@ -131,6 +137,7 @@ def user_groups():
     )
 
 @bp.route("/permission-groups/", methods=["GET", "POST"])
+@login_required
 def permission_groups():
     """
     List and create permission groups.

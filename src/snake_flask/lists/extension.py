@@ -1,10 +1,12 @@
-# +-------------------------------------------------------------------- INFO -+
-# | [Snake-Flask/src/snake_flask/lists/extension.py]                          |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-07-02 15:20:06 UTC                                     |
-# | Updated     : 2026-07-02 15:20:06 UTC                                     |
-# | Description : Snake-Lists extension.                                      |
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/lists/extension.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-07-02 15:20:06 UTC
+# Updated     : 2026-07-16 18:46:25 UTC
+# Description : SnakeLists extension.
 # +---------------------------------------------------------------------------+
 
 from __future__ import annotations

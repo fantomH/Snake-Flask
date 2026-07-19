@@ -19,6 +19,7 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.linguae import get_language_dictionary
 
 bp = Blueprint(
@@ -28,6 +29,7 @@ bp = Blueprint(
 )
 
 @bp.route("/app-config/")
+@login_required
 def configuration():
     """
     List app configuration.

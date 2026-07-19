@@ -21,6 +21,7 @@ from flask import request
 from flask import session
 from flask import url_for
 
+from snake_flask.access.authentication_manager import login_required
 from snake_flask.linguae import get_language_dictionary
 
 from ..user import User
@@ -33,6 +34,7 @@ bp = Blueprint(
 )
 
 @bp.route("/pin-setup/", methods=["GET", "POST"])
+@login_required
 def pin_setup():
 
     pin = current_app.extensions["snake_access"].pin
@@ -105,6 +107,7 @@ def pin_setup():
 
 
 @bp.route("/pin-verification/", methods=("GET", "POST"))
+@login_required
 def verify_pin():
     """
     Verify a user's PIN after successful password authentication.
@@ -160,6 +163,7 @@ def verify_pin():
     )
 
 @bp.route("/pin-confirmation/", methods=["GET", "POST"])
+@login_required
 def pin_confirm():
 
     pin = current_app.extensions["snake_access"].pin

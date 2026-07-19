@@ -70,7 +70,7 @@ class SnakeQuiz:
 
             if _base_template is None:
                 _internal_base_template = (
-                    "snake_quiz/base_standalone.html"
+                    "snake_common/base_standalone.html"
                 )
             else:
                 _internal_base_template = (
