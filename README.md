@@ -19,7 +19,7 @@ Utilities and extensions for Flask applications.
 
 | | Description | |
 | :- | :- | :- |
-| access | Authentication and User management extension. | see (https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/access/README.md)[Snake-Flask/Utils] |
-| utils | Miscellaneous | see (https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/access/README.md)[Snake-Flask/Utils] |
+| access | Authentication and User management extension. | see [Snake-Flask/access](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/access/README.md) |
+| utils | Miscellaneous | see [Snake-Flask/Utils](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/utils/README.md) |
 | get_client_ip() | Return the IP address of the connected client. | see (Snake-Flask/src/snake_flask/utils/README.md)[UTILS] |
 | linguae | Multi display language extension. | see (Snake-Flask/src/snake_flask/linguae/README.md) |
