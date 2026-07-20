@@ -1,11 +1,13 @@
 <!--
-+---------------------------------------------------------------------- INFO -+
-| [Snake-Flask/README.md]                                                     |
-|                                                                             |
-| Author      : Pascal Malouin (https://github.com/fantomH)                   |
-| Created     : 2026-06-05 14:30:59 UTC                                       |
-| Updated     : 2026-06-20 00:15:58 UTC                                       |
-| Description : Utilities and extenstions for Flask applications.             |
++-----------------------------------------------------------------------------+ 
+[+] INFO
++-----------------------------------------------------------------------------+
+ [Snake-Flask/README.md]
+
+ Author      : Pascal Malouin (https://github.com/fantomH)
+ Created     : 2026-06-05 14:30:59 UTC
+ Updated     : 2026-07-20 11:21:52 UTC
+ Description : Flask utilities and extensions.
 +-----------------------------------------------------------------------------+
 -->
 
@@ -17,6 +19,7 @@ Utilities and extensions for Flask applications.
 
 | | Description | |
 | :- | :- | :- |
-| utils | Miscellaneous | see (Snake-Flask/src/snake_flask/utils/README.md)[UTILS] |
+| access | Authentication and User management extension. | see (https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/access/README.md)[Snake-Flask/Utils] |
+| utils | Miscellaneous | see (https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/access/README.md)[Snake-Flask/Utils] |
 | get_client_ip() | Return the IP address of the connected client. | see (Snake-Flask/src/snake_flask/utils/README.md)[UTILS] |
 | linguae | Multi display language extension. | see (Snake-Flask/src/snake_flask/linguae/README.md) |
