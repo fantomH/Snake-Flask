@@ -20,8 +20,6 @@
  */
 document.addEventListener("DOMContentLoaded", function () {
 
-    document.querySelectorAll(".snake-list").forEach(setupSnakeList);
-
     setupSubNavbar();
     setupAutoDismissAlerts();
 
@@ -221,39 +219,6 @@ function setupAjaxPagination(options) {
     syncFromBody();
 
 }
-
-
-/*
- * +--------------------------------------------------------------------------+
- * [+] SNAKE LIST                                                             |
- * |                                                                          |
- * | Snake-List initializer.                                                  |
- * +--------------------------------------------------------------------------+
- */
-
-/*
- * setupSnakeList(list)
- *
- * Initialize one Snake-List component.
- *
- * Most of the work is delegated to setupAjaxPagination(), making the same
- * pagination engine reusable by Snake-Table later.
- */
-function setupSnakeList(list) {
-
-    setupAjaxPagination({
-        root: list,
-        bodySelector: ".snake-list-body",
-        searchSelector: ".snake-list-search",
-        pageSizeSelector: ".snake-list-page-size",
-        previousSelector: ".snake-list-prev",
-        nextSelector: ".snake-list-next",
-        infoSelector: ".snake-list-info",
-        dataSelector: ".snake-list-data",
-    });
-
-}
-
 
 /*
  * +--------------------------------------------------------------------------+

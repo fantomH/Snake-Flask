@@ -1,10 +1,12 @@
-# +-------------------------------------------------------------------- INFO -+
-# | [Snake-Flask/pyproject.toml]                                              |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-06-22 10:39:45 UTC                                     |
-# | Updated     : 2026-07-03 18:55:55 UTC                                     |
-# | Description : Snake-Flask pyproject                                       |
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/pyproject.toml]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-06-22 10:39:45 UTC
+# Updated     : 2026-07-20 11:48:31 UTC
+# Description : Snake-Flask pyproject.
 # +---------------------------------------------------------------------------+
 
 [build-system]
@@ -13,7 +15,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Snake-Flask"
-version = "0.0.1"
+version = "0.0.2"
 description = "Miscellaneous Flask utilities and extensions."
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.10"
@@ -40,11 +42,14 @@ dependencies = [
     "Flask",
     "Markdown",
     "MarkupSafe",
-    "rapidfuzz",
+    "RapidFuzz",
     "psycopg",
     "Werkzeug",
     "snake-vault @ git+https://github.com/fantomH/Snake-Vault.git",
     "click",
+    "PyOTP",
+    "qrcode",
+    "pillow",
 ]
 
 [project.optional-dependencies]

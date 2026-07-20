@@ -61,15 +61,15 @@ class List:
     def from_request(self):
         """Read query, page, and page size from request args."""
 
-        self.query = request.args.get("q", "").strip()
+        self.query = request.args.get("sl_search", "").strip()
 
         self.page = self._safe_int(
-            request.args.get("page"),
+            request.args.get("sl_page"),
             default=1,
         )
 
         self.per_page = self._safe_int(
-            request.args.get("page_size"),
+            request.args.get("sl_page_size"),
             default=self.default_per_page,
         )
 
