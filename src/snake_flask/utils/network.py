@@ -1,10 +1,12 @@
-# +-------------------------------------------------------------------- INFO -+
-# | [Snake-Flask/src/snake_flask/utils/network.py]                            |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-06-04 20:28:00 UTC                                     |
-# | Updated     : 2026-06-22 11:13:07 UTC                                     |
-# | Description : Network helpers.                                            |
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/utils/network.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-06-04 20:28:00 UTC
+# Updated     : 2026-07-21 11:59:15 UTC
+# Description : Network helpers.
 # +---------------------------------------------------------------------------+
 
 from flask import request

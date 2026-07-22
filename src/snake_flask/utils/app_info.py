@@ -1,10 +1,12 @@
-# [INFO] -------------------------------------------------------------------- +
-# | [Snake-Flask/src/snake_flask/utils/app_info.py]                           |
-# |                                                                           |
-# | Author      : Pascal Malouin (https://github.com/fantomH)                 |
-# | Created     : 2026-06-22 16:22:17 UTC                                     |
-# | Updated     : 2026-07-07 19:48:23 UTC                                     |
-# | Description : Flask app info.                                             |
+# +---------------------------------------------------------------------------+
+# [+] INFO
+# +---------------------------------------------------------------------------+
+# [Snake-Flask/src/snake_flask/utils/app_info.py]
+# 
+# Author      : Pascal Malouin (https://github.com/fantomH)
+# Created     : 2026-06-22 16:22:17 UTC
+# Updated     : 2026-07-21 11:43:19 UTC
+# Description : Flask app info.
 # +---------------------------------------------------------------------------+
 
 from datetime import datetime
@@ -96,16 +98,19 @@ def _dictionary(title: str, mapping) -> None:
     _footer()
 
 def display_session():
+    """Display session information in the terminal."""
     _dictionary("SESSION", session)
 
 def display_config():
+    """Display configuration information in the terminal."""
     _dictionary("CONFIG", current_app.config)
 
 def display_debug(values: dict):
+    """Display debug information in the terminal."""
     _dictionary("DEBUG", values)
 
 def display_app_context() -> None:
-    """Print attributes accessible through current_app."""
+    """Display app context information in the terminal."""
 
     if not has_app_context():
         print("No Flask application context active.")
