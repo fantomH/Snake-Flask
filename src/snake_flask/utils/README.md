@@ -63,11 +63,12 @@ Display session information in the terminal.
 
 ### utils.network.get_client_ip(*trust_proxy=True*) -> str
 
-This function is part of snake_flask root API, thus we suggest to use:
-
-`from snake_flask import get_client_ip`
-
-This would avoid code breaking upon snake_flask.utils structural changes.
+| **!** | This function is part of the `snake_flask` root API, thus we suggest using:
+         <br><br>
+        `from snake_flask import get_client_ip`
+        <br><br>
+        This avoids code breaking upon `snake_flask.utils` structural changes. |
+| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 Returns the IP address of the connected client.
 
