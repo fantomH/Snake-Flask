@@ -6,7 +6,7 @@
 
 Author      : Pascal Malouin (https://github.com/fantomH)
 Created     : 2026-06-05 14:30:59 UTC
-Updated     : 2026-07-21 12:10:02 UTC
+Updated     : 2026-07-27 12:14:38 UTC
 Description : Snake-Flask Utils README.
 +-----------------------------------------------------------------------------+
 -->
@@ -62,6 +62,12 @@ Display session information in the terminal.
 ---
 
 ### utils.network.get_client_ip(*trust_proxy=True*) -> str
+
+This function is part of snake_flask root API, thus we suggest to use:
+
+`from snake_flask import get_client_ip`
+
+This would avoid code breaking upon snake_flask.utils structural changes.
 
 Returns the IP address of the connected client.
 
