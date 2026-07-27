@@ -19,7 +19,7 @@ Utilities for Flask applications.
 
 The `snake_flask.utils` module contains reusable helper functions that simplify common Flask development tasks.
 
-### API
+## API
 
 | Function | Description | |
 | :- | :- | :- |
@@ -41,7 +41,9 @@ It is suggested to use, for example `snake_flask.get_client_ip()` instead of `sn
 
 ---
 
-#### `utils.display_app_context()` -> None
+## Functions
+
+### `utils.display_app_context()` -> None
 
 Display app context information in the terminal.
 
@@ -57,7 +59,9 @@ Display debug information in the terminal.
 
 Display session information in the terminal.
 
-#### utils.get_client_ip(*trust_proxy=True*) -> str
+---
+
+### utils.network.get_client_ip(*trust_proxy=True*) -> str
 
 Returns the IP address of the connected client.
 
@@ -79,3 +83,5 @@ def index():
 When running behind a reverse proxy, ensure that the proxy is configured to set the `X-Forwarded-For` header correctly.
 
 Because HTTP headers can be forged by clients, `trust_proxy=True` should only be used when requests are received through a trusted proxy infrastructure.
+
+---
