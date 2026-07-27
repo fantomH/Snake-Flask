@@ -29,37 +29,37 @@ The `snake_flask.utils` module contains reusable helper functions that simplify 
 | `display_session()` | Display session information in terminal. |
 | `get_client_ip()` | Return the IP address of the connected client. |
 
-The following functions are exposed at the root Snake-Flask API:
-
-- `display_app_context()`
-- `display_config()`
-- `display_debug()`
-- `display_session()`
-- `get_client_ip()`
-
-It is suggested to use, for example `snake_flask.get_client_ip()` instead of `snake_flask.utils.get_client_ip()`. This would avoid code breaking upon changes in the modules' structure.
-
 ---
 
 ## Functions
 
-### `utils.display_app_context()` -> None
+### utils.app_info.display_app_context() -> None
+
+|  ⚠️ | This function is part of the `snake_flask` root API, thus we suggest using:<br><br>`from snake_flask import display_app_context`<br><br>This avoids code breaking upon `snake_flask.utils` structural changes. |
+| :-: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 Display app context information in the terminal.
 
-#### `utils.display_config()` -> None
+### utils.app_info.display_config() -> None
+
+|  ⚠️ | This function is part of the `snake_flask` root API, thus we suggest using:<br><br>`from snake_flask import display_config`<br><br>This avoids code breaking upon `snake_flask.utils` structural changes. |
+| :-: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 Display configuration information in the terminal.
 
-#### `utils.display_debug()` -> None
+### utils.app_info.display_debug(*values*: dict) -> None
+
+|  ⚠️ | This function is part of the `snake_flask` root API, thus we suggest using:<br><br>`from snake_flask import display_debug`<br><br>This avoids code breaking upon `snake_flask.utils` structural changes. |
+| :-: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 Display debug information in the terminal.
 
-#### `utils.display_session()` -> None
+### utils.display_session() -> None
+
+|  ⚠️ | This function is part of the `snake_flask` root API, thus we suggest using:<br><br>`from snake_flask import display_session`<br><br>This avoids code breaking upon `snake_flask.utils` structural changes. |
+| :-: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 Display session information in the terminal.
-
----
 
 ### utils.network.get_client_ip(*trust_proxy=True*) -> str
 
@@ -74,7 +74,7 @@ This is useful when the application is deployed behind a reverse proxy such as N
 
 ```python
 from flask import Flask
-from snake_flask.utils import get_client_ip
+from snake_flask import get_client_ip
 
 app = Flask(__name__)
 

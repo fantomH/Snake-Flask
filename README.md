@@ -31,11 +31,11 @@ Flask utilities and extensions.
 
 | Function | Description ||
 | :- | :- | :- |
-| get_client_ip() | Return the IP address of the connected client. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/utils/README.md#utilsnetworkget_client_iptrust_proxytrue---str) |
 | display_session() | Display session information in terminal. ||
 | display_config() | Display configuration information in terminal. ||
 | display_debug() | Display debug information in terminal. ||
 | display_app_context() | Display app context information in terminal. ||
+| get_client_ip() | Return the IP address of the connected client. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/utils/README.md#utilsnetworkget_client_iptrust_proxytrue---str) |
 
 ## Installation
 
