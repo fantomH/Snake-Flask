@@ -17,21 +17,21 @@ Flask utilities and extensions.
 
 ## API
 
-| MODULE | DESCRIPTION | DETAILS |
+| Module | Description ||
 | :- | :- | :- |
-| access | Authentication and User management extension. | see [Snake-Flask/access](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/access/README.md) |
-| common | Shared assets. | see [Snake-Flask/common](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/common/README.md) |
-| database | Database management. | see [Snake-Flask/database](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/database/README.md) |
-| linguae | Multi-language display extension. | see [Snake-Flask/linguae](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/linguae/README.md) |
-| lists | List generator extension. | see [Snake-Flask/lists](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/lists/README.md) |
-| permissions | Permissions management extension. | see [Snake-Flask/permissions](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/permissions/README.md) |
-| quiz | Quiz generator extension. | see [Snake-Flask/quiz](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/quiz/README.md) |
-| tables | Table generator extension. | see [Snake-Flask/tables](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/tables/README.md) |
-| utils | Miscellaneous utilities | see [Snake-Flask/utils](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/utils/README.md) |
+| access | Authentication and User management extension. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/access/README.md) |
+| common | Shared assets. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/common/README.md) |
+| database | Database management. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/database/README.md) |
+| linguae | Multi-language display extension. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/linguae/README.md) |
+| lists | List generator extension. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/lists/README.md) |
+| permissions | Permissions management extension. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/permissions/README.md) |
+| quiz | Quiz generator extension. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/quiz/README.md) |
+| tables | Table generator extension. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/tables/README.md) |
+| utils | Miscellaneous utilities | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/utils/README.md) |
 
-| FUNCTION | DESCRIPTION | DETAILS |
+| Function | Description ||
 | :- | :- | :- |
-| get_client_ip() | Return the IP address of the connected client. | [Snake-Flask/utils/network/get_client_ip()](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/utils/README.md#get_client_ip) |
+| get_client_ip() | Return the IP address of the connected client. | [details](https://github.com/fantomH/Snake-Flask/blob/main/src/snake_flask/utils/README.md#utilsnetworkget_client_iptrust_proxytrue---str) |
 | display_session() | Display session information in terminal. ||
 | display_config() | Display configuration information in terminal. ||
 | display_debug() | Display debug information in terminal. ||
