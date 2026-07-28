@@ -29,7 +29,7 @@ The `snake_flask.access` extension provides:
 
 ## Default Configuration
 
-### *config* SNAKE_ACCESS_DATABASE
+### *config* `SNAKE_ACCESS_DATABASE`
 
 Defautl: `access.sqlite`
 
