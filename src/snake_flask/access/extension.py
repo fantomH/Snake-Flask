@@ -6,7 +6,7 @@
 # Author      : Pascal Malouin (https://github.com/fantomH)
 # Created     : 2026-07-06 11:31:03 UTC
 # Updated     : 2026-07-14 16:36:11 UTC
-# Description : SnakeAccess extension.
+# Description : Snake-Flask Access extension.
 # +---------------------------------------------------------------------------+
 
 from __future__ import annotations

@@ -54,6 +54,17 @@ Display configuration information in the terminal.
 
 Display debug information in the terminal.
 
+This is quite useful to get debug information at different stage.
+
+```python
+from snake_flask import display_debug
+
+display_debug({
+    "id(session)": id(session),
+    "session": dict(session),
+})
+```
+
 ### utils.display_session() -> None
 
 |  ⚠️ | This function is part of the `snake_flask` root API, thus we suggest using:<br><br>`from snake_flask import display_session`<br><br>This avoids code breaking upon `snake_flask.utils` structural changes. |
