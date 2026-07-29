@@ -148,7 +148,7 @@ Not to be confused with a user profile, where you could have a full demographic 
 * `pin_enabled`
 * `pin_secret`
 
-### User.create_user(*username*, *firstname*, lastname, password, email=None, is_active=False, mfa_enabled=False, mfa_secret=None, pin_enabled=False, pin_secret=None)
+### User.create_user(*username, firstname, lastname, password, email=None, is_active=False, mfa_enabled=False, mfa_secret=None, pin_enabled=False, pin_secret=None*)
 
 ### `User.update_user(*user_id, \*\*fields*)`
 
