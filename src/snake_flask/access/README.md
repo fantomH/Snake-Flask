@@ -31,7 +31,7 @@ The `snake_flask.access` extension provides:
 
 ## Default Configuration
 
-### *config* `SNAKE_ACCESS_DATABASE`
+### `SNAKE_ACCESS_DATABASE`
 
 Defautl: `access.sqlite`
 
@@ -39,11 +39,11 @@ By default, SnakeAccess will use the URI `instance/access.sqlite`.
 
 Only SQLite database can be used for the moment.
 
-### *config* `SNAKE_ACCESS_URL_PREFIX`
+### `SNAKE_ACCESS_URL_PREFIX`
 
 Default: `/authentication`
 
-### *config* `SNAKE_ACCESS_BASE_TEMPLATE`
+### `SNAKE_ACCESS_BASE_TEMPLATE`
 
 Default: `None`
 
@@ -51,47 +51,47 @@ If no "base" template is specified, `snake_access` will use it own internal base
 
 You can integrate `snake_access` templates into your own by setting `SNAKE_ACCESS_BASE_TEMPLATE` to, for example, `base.html`.
 
-### *config* `SNAKE_ACCESS_SECRET_KEY`
+### `SNAKE_ACCESS_SECRET_KEY`
 
 Default: `None`
 
-### *config* `SNAKE_ACCESS_PASSWORD_CONFIRM_TIMEOUT`
+### `SNAKE_ACCESS_PASSWORD_CONFIRM_TIMEOUT`
 
 Default: `60` seconds
 
-### *config* `SNAKE_ACCESS_MFA_ISSUER`
+### `SNAKE_ACCESS_MFA_ISSUER`
 
 Default: `Snake-Access`
 
-### *config* `SNAKE_ACCESS_MFA_VALID_WINDOW`
+### `SNAKE_ACCESS_MFA_VALID_WINDOW`
 
 Default: `1`
 
-### *config* `SNAKE_ACCESS_MFA_REQUIRED`
+### `SNAKE_ACCESS_MFA_REQUIRED`
 
 Default: `False`
 
-### *config* `SNAKE_ACCESS_MFA_ENABLED`
+### `SNAKE_ACCESS_MFA_ENABLED`
 
 Default: `False`
 
-### *config* `SNAKE_ACCESS_MFA_CONFIRM_TIMEOUT`
+### `SNAKE_ACCESS_MFA_CONFIRM_TIMEOUT`
 
 Default: `10` seconds.
 
-### *config* `SNAKE_ACCESS_PIN_LENGTH`
+### `SNAKE_ACCESS_PIN_LENGTH`
 
 Default: `4`
 
-### *config* `SNAKE_ACCESS_PIN_REQUIRED`
+### `SNAKE_ACCESS_PIN_REQUIRED`
 
 Default: `False`
 
-### *config* `SNAKE_ACCESS_PIN_ENABLED`
+### `SNAKE_ACCESS_PIN_ENABLED`
 
 Default: `False`
 
-### *config* `SNAKE_ACCESS_PIN_CONFIRM_TIMEOUT`
+### `SNAKE_ACCESS_PIN_CONFIRM_TIMEOUT`
 
 Default: `10` seconds.
 
@@ -164,17 +164,17 @@ Not to be confused with a user profile, where you could have a full demographic 
 
 Blueprint: `authentication`.
 
-### ../auth/
+### `../auth/`
 
-### ../password-confirmation/
+### `../password-confirmation/`
 
-### ../login/
+### `../login/`
 
-### ../sign-up/
+### `../sign-up/`
 
-### ../my-account/
+### `../my-account/`
 
-### ../logout/
+### `../logout/`
 
 ---
 
