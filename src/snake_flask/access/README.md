@@ -125,3 +125,85 @@ def create_app(instance_path=None):
 ```
 
 As of now, a landing "index" must be defined by the developper, which is required to complete the login and authentication routine.
+
+---
+
+## *class* User
+
+Class managing the basic information and authentication (password, MFA, PIN) aspects of a user.
+
+Not to be confused with a user profile, where you could have a full demographic description, preferences, etc.
+
+`User` contains:
+
+* user `id`
+* `username`
+* `firstname`
+* `lastname`
+* `email`
+* `password_hash`
+* `is_active`
+* `mfa_enabled`
+* `mfa_secret`
+* `pin_enabled`
+* `pin_secret`
+
+### `User.create_user(*username, firstname, lastname, password, email=None, is_active=False, mfa_enabled=False, mfa_secret=None, pin_enabled=False, pin_secret=None*)`
+
+### `User.update_user(*user_id, \*\*fields*)`
+
+### `User.fetch_by_username(*username*)`
+
+### `User.fetch_by_id(*id*)`
+
+### `User.fetch_by_email(*email*)`
+
+---
+
+## Basic Access Routes
+
+Blueprint: `authentication`.
+
+### `../auth/`
+
+### `../password-confirmation/`
+
+### `../login/`
+
+### `../sign-up/`
+
+### `../my-account/`
+
+### `../logout/`
+
+---
+
+## Admin Routes
+
+Blueprint: `admin`.
+
+### `../admin/users/`
+
+### `../admin/users/account/<username>/`
+
+---
+
+## MFA Routes
+
+Blueprint: `mfa`.
+
+### `../mfa-setup/`
+
+### `../mfa-verification/`
+
+---
+
+## PIN Routes
+
+Blueprint: `pin`.
+
+### `../pin-setup/`
+
+### `../pin-verification/`
+
+### `../pin-confirmation/`
