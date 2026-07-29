@@ -148,15 +148,15 @@ Not to be confused with a user profile, where you could have a full demographic 
 * `pin_enabled`
 * `pin_secret`
 
-#### User.create_user(*username, firstname, lastname, password, email=None, is_active=False, mfa_enabled=False, mfa_secret=None, pin_enabled=False, pin_secret=None*)
+### User.create_user(*username, firstname, lastname, password, email=None, is_active=False, mfa_enabled=False, mfa_secret=None, pin_enabled=False, pin_secret=None*)
 
-### `User.update_user(*user_id, \*\*fields*)`
+### User.update_user(*user_id, \*\*fields*)
 
-### `User.fetch_by_username(*username*)`
+### User.fetch_by_username(*username*)
 
-### `User.fetch_by_id(*id*)`
+### User.fetch_by_id(*id*)
 
-### `User.fetch_by_email(*email*)`
+### User.fetch_by_email(*email*)
 
 ---
 
@@ -164,17 +164,17 @@ Not to be confused with a user profile, where you could have a full demographic 
 
 Blueprint: `authentication`.
 
-### `../auth/`
+### ../auth/
 
-### `../password-confirmation/`
+### ../password-confirmation/
 
-### `../login/`
+### ../login/
 
-### `../sign-up/`
+### ../sign-up/
 
-### `../my-account/`
+### ../my-account/
 
-### `../logout/`
+### ../logout/
 
 ---
 
