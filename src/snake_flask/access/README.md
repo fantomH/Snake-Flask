@@ -24,6 +24,7 @@ Extension name: `snake_access`.
 The `snake_flask.access` extension provides:
 
 * Basic login, sign-up and logout pages.
+* User management pages.
 * Multi-factor and PIN setup and access capability.
 * A set of required condiditional decorator such as `@login_required` to manage access to routes.
 
@@ -33,7 +34,7 @@ The `snake_flask.access` extension provides:
 
 ### `SNAKE_ACCESS_DATABASE`
 
-Defautl: `access.sqlite`
+Default: `access.sqlite`
 
 By default, SnakeAccess will use the URI `instance/access.sqlite`.
 
